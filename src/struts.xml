@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="default" namespace="/" extends="struts-default">
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+
+        <action name="login" class="com.lkw.web.LoginAction" method="Login" >
+            <result name="login">Login.jsp</result>
+            <result name="ok">LoginOk.jsp</result>
+            <result name="error">LoginError.jsp</result>
+        </action>
+    </package>
+
+    <!-- Add packages here -->
+
+</struts>
