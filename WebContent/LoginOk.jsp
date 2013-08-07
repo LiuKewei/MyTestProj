@@ -8,7 +8,7 @@
 </head>
 <body>
 	<center>
-		<h1>Login Is Ok!</h1>
+		<h1>Hello world! ${user.name }</h1>
 	</center>
 </body>
 </html>

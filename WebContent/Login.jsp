@@ -22,17 +22,16 @@
 			width="640" height="480" toolbar="true" text="Waiting for video"
 			name="vlc">
 		</EMBED> -->
-	<!-- firefox -->
-	<EMBED type="application/x-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="no" loop="no"
-		hidden="no" width="640" height="480" toolbar="true"
-		text="Waiting for video" target="rtsp://192.168.159.1/01.ts"
-		name="vlc">
+	<!-- firefox 
+	<EMBED type="application/x-vlc-plugin" version="VideoLAN.VLCPlugin.2"
+		autoplay="no" loop="no" hidden="no" width="640" height="480"
+		toolbar="true" text="Waiting for video"
+		target="rtsp://192.168.159.1/01.ts" name="vlc">
 	</EMBED>
-	</OBJECT>
+	</OBJECT>-->
 	<center>
 		<form action="login" method="post">
-			UserName<input type="text" name="name" id="name" /><br /> Password<input
-				type="password" name="name" id="name" /><br /> <input
+			UserID<input type="text" name="id" id="id" /><br /> <input
 				type="submit" value="login" />
 		</form>
 	</center>
