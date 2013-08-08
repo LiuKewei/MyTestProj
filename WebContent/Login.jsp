@@ -31,7 +31,7 @@
 	</OBJECT>-->
 	<center>
 		<form action="login" method="post">
-			UserID<input type="text" name="id" id="id" /><br /> <input
+			UserID<input type="text" name="idl" id="idl" /><br /> <input
 				type="submit" value="login" />
 		</form>
 	</center>

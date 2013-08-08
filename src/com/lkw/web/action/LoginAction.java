@@ -14,13 +14,14 @@ import com.opensymphony.xwork2.ActionSupport;
 @Controller("loginAction")
 
 public class LoginAction extends ActionSupport {
-    private String id;
-	public String getId() {
-		return id;
+    private String idl;
+
+	public String getIdl() {
+		return idl;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdl(String idl) {
+		this.idl = idl;
 	}
 
 	private User user;
@@ -38,7 +39,10 @@ public class LoginAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		user = userMapperImpl.getUser(Integer.parseInt(this.id));
+		System.out.println(this.idl);
+		user = userMapperImpl.getUser(Integer.parseInt(this.idl));
+		System.out.println(user.getName());
+		System.out.println(user.getId());
 		return "ok";
 	}
 	

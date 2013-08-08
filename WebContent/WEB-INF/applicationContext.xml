@@ -1,47 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http:/www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
-     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
-     
-     <context:component-scan base-package="com.lkw.web"
-		use-default-filters="false">
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Service" />
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Repository" />
-	</context:component-scan>
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url"
-			value="jdbc:mysql://10.80.45.52:3306/ssmsample?useUnicode=true&characterEncoding=utf8"></property>
-		<property name="username" value="root"></property>
-		<property name="password" value="Eriemu"></property>
-	</bean>
-	<!-- transaction manager, use JtaTransactionManager for global tx -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	<!-- define the SqlSessionFactory -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.lkw.web.model" />
-	</bean>
-	<!-- scan for mappers and let them be autowired -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.lkw.web.dao" />
-	</bean>
-	<!-- enable autowire -->
-	<context:annotation-config />
-	<!-- enable transaction demarcation with annotations -->
-	<tx:annotation-driven />
-</beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						classpath:/org/springframework/beans/factory/xml/spring-beans-3.2.xsd 
+						http://www.springframework.org/schema/jdbc 
+						classpath:/org/springframework/jdbc/config/spring-jdbc-3.2.xsd
+						http://www.springframework.org/schema/tx 
+						classpath:/org/springframework/transaction/config/spring-tx-3.2.xsd
+						http://www.springframework.org/schema/aop 
+						classpath:/org/springframework/aop/config/spring-aop-3.2.xsd
+						http://www.springframework.org/schema/context 
+						classpath:/org/springframework/context/config/spring-context-3.2.xsd">
+
+ 
+		<context:component-scan base-package="com.lkw.web"
+			use-default-filters="false">
+			<context:include-filter type="annotation"
+				expression="org.springframework.stereotype.Controller" />
+			<context:include-filter type="annotation"
+				expression="org.springframework.stereotype.Service" />
+			<context:include-filter type="annotation"
+				expression="org.springframework.stereotype.Repository" />
+		</context:component-scan>
+		
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+			destroy-method="close">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+			<property name="url"
+				value="jdbc:mysql://localhost:38250/ssmsample?characterEncoding=utf8"></property>
+			<property name="username" value="liuuukew"></property>
+			<property name="password" value="Eriemu"></property>
+		</bean>
+		<!-- transaction manager, use JtaTransactionManager for global tx -->
+		<bean id="transactionManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+		<!-- define the SqlSessionFactory -->
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource" />
+			<property name="typeAliasesPackage" value="com.lkw.web.model" />
+		</bean>
+		<!-- scan for mappers and let them be autowired -->
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+			<property name="basePackage" value="com.lkw.web.dao" />
+		</bean>
+		
+		<!-- enable autowire -->
+		<context:annotation-config></context:annotation-config>
+		<!-- enable transaction demarcation with annotations -->
+		<tx:annotation-driven></tx:annotation-driven>
+		
+	</beans>

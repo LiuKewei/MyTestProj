@@ -8,12 +8,12 @@
 	<constant name="struts.objectFactory" value="spring"></constant>
 
     <package name="default" namespace="/" extends="struts-default">
-
+<!-- 
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
-
-        <action name="login" class="loginAction" method="Login" >
+ -->
+        <action name="login" class="loginAction">
             <result name="login">Login.jsp</result>
             <result name="ok">LoginOk.jsp</result>
             <result name="error">LoginError.jsp</result>
