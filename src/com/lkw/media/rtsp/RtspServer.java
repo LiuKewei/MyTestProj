@@ -1,14 +1,14 @@
 package com.lkw.media.rtsp;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class RtspServer {
 	public RtspServer() {
 		try {
-			String serAddr = 
-			int serPort = 
-			Socket socket = new Socket(serAddr, serPort);
+			int serPort = Integer.parseInt(RtspProperties.getInstance().getPort());
+			Socket socket = new Socket("localhost", serPort);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
