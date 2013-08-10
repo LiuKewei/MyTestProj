@@ -21,5 +21,6 @@
     </package>
 
     <!-- Add packages here -->
-
+    <include file="struts_video.xml" />
+    
 </struts>

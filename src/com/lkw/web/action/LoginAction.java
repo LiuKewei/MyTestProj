@@ -40,13 +40,10 @@ public class LoginAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		System.out.println(this.idl);
-		user = userMapperImpl.getUser(Integer.parseInt(this.idl));
-		System.out.println(user.getName());
-		System.out.println(user.getId());
-		
+//		user = userMapperImpl.getUser(Integer.parseInt(this.idl));
 //		ReadProperties rp = ReadProperties.getInstance();
 //		Properties p = rp.getProperty("config/rtsp/rtspServer.properties");
-//		System.out.println(p.getProperty("listenPort"));
+//		System.out.println(p.getProperty("listenPort"));	
 		
 		return "ok";
 	}

@@ -30,8 +30,8 @@
 			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 			<property name="url"
 				value="jdbc:mysql://localhost:38250/ssmsample?characterEncoding=utf8"></property>
-			<property name="username" value="liuuukew"></property>
-			<property name="password" value="Eriemu"></property>
+			<property name="username" value="lkwkedou"></property>
+			<property name="password" value="111111"></property>
 		</bean>
 		<!-- transaction manager, use JtaTransactionManager for global tx -->
 		<bean id="transactionManager"
