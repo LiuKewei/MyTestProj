@@ -9,7 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @SuppressWarnings("serial")
 @Scope("request")
 @Controller("startSerAction")
-public class StartSerAction extends ActionSupport {
+public class StartClientAction extends ActionSupport {
 	private String serverId; 
 	public String getServerId() {
 		return serverId;
