@@ -1,7 +1,14 @@
 package com.lkw.media.rtsp.protocol;
 
-public class HeaderLine {
+import java.io.Serializable;
 
+public class HeaderLine implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7280354818001342027L;
+	
 	private String header_name;
 	private String header_value;
 	

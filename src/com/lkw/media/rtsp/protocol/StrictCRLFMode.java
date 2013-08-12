@@ -1,5 +1,7 @@
 package com.lkw.media.rtsp.protocol;
 
-public enum StrictCRLFMode {
+import java.io.Serializable;
+
+public enum StrictCRLFMode implements Serializable {
 	ERROR, WARNING, WARNING_ONCE, ACCEPT;
 }

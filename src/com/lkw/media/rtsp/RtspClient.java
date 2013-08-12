@@ -9,11 +9,15 @@ import java.nio.channels.SocketChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.lkw.media.rtsp.protocol.HeaderStruct;
+import com.lkw.media.rtsp.protocol.Method;
 import com.lkw.media.rtsp.protocol.RTSPRequest;
 import com.lkw.media.rtsp.protocol.RTSPTypes;
+import com.lkw.media.rtsp.protocol.RTSPVersion;
+import com.lkw.media.rtsp.protocol.RequestLine;
 import com.lkw.utility.SerializableUtil;
 
-public class RtspClient implements Runnable {
+public class RtspClient implements Runnable  {
 
 	private final static Logger logger = Logger.getLogger(RtspClient.class
 			.getName());
@@ -25,17 +29,25 @@ public class RtspClient implements Runnable {
 		// TODO Auto-generated method stub
 		SocketChannel socketChannel = null;
 		try {
+			System.out.println("client run  port num" + serPort);
 			socketChannel = SocketChannel.open();
 			SocketAddress socketAddress = new InetSocketAddress("localhost",
 					serPort);
 			socketChannel.connect(socketAddress);
-			RTSPRequest req = new RTSPRequest();
+			HeaderStruct header = new HeaderStruct();
+			header.setAccept("accept");
+			byte[] reqPaylaod = new byte[1];
+			reqPaylaod[0] = (byte)1; 
+			RTSPRequest req = new RTSPRequest(
+					new RequestLine(Method.TEARDOWN, "rtsp://192.168.0.104/01.ts", new RTSPVersion(1, 1)),
+					header,
+					reqPaylaod);
 			RTSPTypes myRequestObject = new RTSPTypes(req);
-			logger.log(Level.INFO, myRequestObject.toString());
+			//logger.log(Level.INFO, myRequestObject.getPdu().getRequest().getHeader().getAccept());
 			sendData(socketChannel, myRequestObject);
 
 			RTSPTypes myResponseObject = receiveData(socketChannel);
-			logger.log(Level.INFO, myResponseObject.toString());
+			logger.log(Level.INFO, myResponseObject.getPdu().getResponse().getStatusLine().getReasonPhrase());
 
 			// if
 			// (myResponseObject.getPdu().getResponse().getStatusLine().getStatusCode()

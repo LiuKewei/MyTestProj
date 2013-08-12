@@ -1,11 +1,25 @@
 package com.lkw.media.rtsp.protocol;
 
+import java.io.Serializable;
 
-public class RequestLine {
 
+public class RequestLine implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -966719392223137271L;
 	private Method method;
 	private String requestURI;
 	private RTSPVersion version;
+	
+	public RequestLine(Method method, String requestURI, RTSPVersion version) {
+		super();
+		this.method = method;
+		this.requestURI = requestURI;
+		this.version = version;
+	}
+	
 	public Method getMethod() {
 		return method;
 	}

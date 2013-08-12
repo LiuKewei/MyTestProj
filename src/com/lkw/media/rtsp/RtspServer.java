@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.lkw.media.rtsp.protocol.HeaderStruct;
 import com.lkw.media.rtsp.protocol.Method;
 import com.lkw.media.rtsp.protocol.RTSPResponse;
 import com.lkw.media.rtsp.protocol.RTSPTypes;
@@ -23,7 +22,7 @@ import com.lkw.media.rtsp.protocol.StatusLine;
 import com.lkw.utility.SerializableUtil;
 
 public class RtspServer implements Runnable {
-	
+
 	private final static Logger logger = Logger.getLogger(RtspServer.class.getName());
 	
 	private final static int serPort = Integer.parseInt(RtspProperties.getInstance().getPort());
@@ -35,6 +34,7 @@ public class RtspServer implements Runnable {
 		Selector selector = null;
 		ServerSocketChannel serverSocketChannel = null;
 		try {
+			System.out.println("server run  port num" + serPort);
 			// Selector for incoming time requests
 			selector = Selector.open();
 			// Create a new server socket and set to non blocking mode
@@ -53,18 +53,21 @@ public class RtspServer implements Runnable {
 			// Here's where everything happens. The select method will
 			// return when any operations registered above have occurred, the
 			// thread has been interrupted, etc.
-			while (selector.select() > 0 && !terminal_flag) {
+			while (selector.select() > 0) {
 				// Someone is ready for I/O, get the ready keys
 				Iterator<SelectionKey> it = selector.selectedKeys().iterator();
 
 				// Walk through the ready keys collection and process date requests.
-				while (it.hasNext() && !terminal_flag) {
+				while (it.hasNext()) {
 					SelectionKey readyKey = it.next();
 					it.remove();
 
 					// The key indexes into the selector so you
 					// can retrieve the socket that's ready for I/O
 					execute((ServerSocketChannel) readyKey.channel());
+				}
+				if (terminal_flag) {
+					break;
 				}
 			}
 		} catch (NumberFormatException e) {
@@ -78,6 +81,7 @@ public class RtspServer implements Runnable {
 		} finally {
 			try {
 				selector.close();
+                System.out.println("server selector close");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -100,20 +104,21 @@ public class RtspServer implements Runnable {
 			
 			RTSPTypes request = receiveData(socketChannel);
 			
-			logger.log(Level.INFO, request.toString());
+			logger.log(Level.INFO, request.getPdu().getRequest().getRequestLine().getMethod().toString());
+			logger.log(Level.INFO, request.getPdu().getRequest().getRequestLine().getRequestURI());
 			RTSPResponse resp = null;
 			if (request.getPdu().getRequest().getRequestLine().getMethod() == Method.TEARDOWN) {
 				terminal_flag = true;
-				resp = new RTSPResponse(new StatusLine(new RTSPVersion(1,1), 400, "error"), new HeaderStruct(), new byte[1024]);
+				resp = new RTSPResponse(new StatusLine(new RTSPVersion(1,1), 400, "error"), request.getPdu().getRequest().getHeader(), request.getPdu().getRequest().getBody());
 			} else {
-				resp = new RTSPResponse(new StatusLine(new RTSPVersion(1,1), 200, "ok"), new HeaderStruct(), new byte[1024]);
+				resp = new RTSPResponse(new StatusLine(new RTSPVersion(1,1), 200, "ok"), request.getPdu().getRequest().getHeader(), request.getPdu().getRequest().getBody());
 			}
 			
 			RTSPTypes response = new RTSPTypes(resp);
 			sendData(socketChannel, response);
 		} finally {
 			try {  
-                socketChannel.close();  
+                socketChannel.close();
             } catch(Exception e) {
             	e.printStackTrace();
             }  

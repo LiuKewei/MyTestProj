@@ -1,7 +1,13 @@
 package com.lkw.media.rtsp.protocol;
 
-public class RTSPVersion {
+import java.io.Serializable;
+
+public class RTSPVersion implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -39069449746065610L;
 	private int major;
 	private int minor;
 	

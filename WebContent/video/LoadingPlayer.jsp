@@ -45,7 +45,7 @@
 	<EMBED type="application/x-vlc-plugin" version="VideoLAN.VLCPlugin.2"
 		width="640" height="480" toolbar="true" text="Waiting for video"
 		autoplay="no" loop="no" hidden="no" name="vlc"
-		target="rtsp://192.168.1.101/01.ts">
+		target="rtsp://192.168.1.103/01.ts">
 	</EMBED>
 </body>
 </html>

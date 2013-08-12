@@ -10,8 +10,8 @@
 <script type="text/javascript" src="<%=path%>/js/jquery/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="<%=path%>/js/vlc/loading-player.js"></script>
 <script type="text/javascript">
-	function LoadPlayer() {
-		alert("LoadPlayer!");
+	function LoadServer() {
+		alert("LoadServer!");
 
 		$
 				.ajax({
@@ -20,10 +20,10 @@
 						serverId : "aaaaaaaaaaaaaa"
 					},
 					complete : function(xmlHttpRequest) {
-						alert("complete!");
+						alert("server complete!");
 					},
 					success : function() {
-						alert("success");
+						alert("server success");
 						var div4ie = '<TABLE><TR><TD colspan="2">MRL: <INPUT size="90" id="targetTextField" value="">'
 								+ '<INPUT type=submit value="Go" onClick="doGo(document.getElementById(\'targetTextField\').value);">'
 								+ '</TD></TR></TABLE>'
@@ -43,10 +43,28 @@
 						$("#msgDIVID").html(div4firefox);
 					},
 					error : function() {
-						alert("fuck!");
+						alert("server fuck!");
 					}
 
 				});
+	}
+
+	function LoadClient() {
+		alert("LoadClient!");
+
+		$.ajax({
+			url : 'video/startCli.action',
+			complete : function(xmlHttpRequest) {
+				alert("client complete!");
+			},
+			success : function() {
+				alert("client success");
+			},
+			error : function() {
+				alert("client fuck!");
+			}
+
+		});
 	}
 </script>
 <title>Login Ok!</title>
@@ -59,8 +77,12 @@
 		</h1>
 		<TABLE>
 			<TR>
-				<TD colspan="2"><INPUT type=submit value="LoadPlayer"
-					onClick="LoadPlayer();"></TD>
+				<TD colspan="2"><INPUT type=submit value="LoadServer"
+					onClick="LoadServer();"></TD>
+			</TR>
+			<TR>
+				<TD colspan="2"><INPUT type=submit value="LoadClient"
+					onClick="LoadClient();"></TD>
 			</TR>
 		</TABLE>
 		<form action="video/startSer" method="post">

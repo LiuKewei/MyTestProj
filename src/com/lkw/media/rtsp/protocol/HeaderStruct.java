@@ -1,9 +1,14 @@
 package com.lkw.media.rtsp.protocol;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HeaderStruct {
+public class HeaderStruct implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4564804801072786244L;
 	private String accept = null; // 12.1
 	private String acceptEncoding = null; // 12.2
 	private String acceptLanguage = null; // 12.3

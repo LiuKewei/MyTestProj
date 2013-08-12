@@ -1,6 +1,12 @@
 package com.lkw.media.rtsp.protocol;
 
-public class RTSPResponse {
+import java.io.Serializable;
+
+public class RTSPResponse implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6778138656107882120L;
 	private StatusLine statusLine;
 	private HeaderStruct header;
 	private byte[] body;

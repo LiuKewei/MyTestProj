@@ -1,9 +1,14 @@
 package com.lkw.media.rtsp.protocol;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RTSPTypes {
+public class RTSPTypes implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1845853972225582515L;
 	public static final ArrayList<StatusInfo> c_statusInfoList = new ArrayList<StatusInfo>();
 
 	static {

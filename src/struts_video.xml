@@ -10,5 +10,9 @@
             <result name="error">LoginError.jsp</result>
             <result>/video/LoadingPlayer.jsp</result>
         </action>
+        
+        <action name="startCli" class="startClientAction">
+            <result name="error">LoginError.jsp</result>
+        </action>
     </package>
 </struts>

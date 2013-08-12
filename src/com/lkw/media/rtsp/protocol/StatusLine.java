@@ -1,6 +1,12 @@
 package com.lkw.media.rtsp.protocol;
 
-public class StatusLine {
+import java.io.Serializable;
+
+public class StatusLine implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4524435777143554923L;
 	private RTSPVersion version;
 	private int statusCode;
 	private String reasonPhrase;
