@@ -72,7 +72,7 @@
 <body>
 	<center>
 		<h1>
-			Hello world!
+			!
 			<!-- ${requestScope.user.name } -->
 		</h1>
 		<TABLE>
