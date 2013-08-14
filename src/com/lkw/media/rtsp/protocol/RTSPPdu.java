@@ -12,6 +12,10 @@ public class RTSPPdu implements Serializable {
 	private RTSPRequest request = null;
 	private RTSPResponse response = null;
 	private RTSPErronousMsg erronousMsg = null;
+	
+	public enum PduType {
+		REQ,RESP,ERR;
+	}
 
 	public RTSPPdu(Object obj) {
 		if (obj instanceof RTSPRequest) {

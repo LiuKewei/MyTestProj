@@ -19,7 +19,7 @@ public class RTSPRequest implements Serializable {
 		this.header = header;
 		this.body = body;
 	}
-	
+
 	public RequestLine getRequestLine() {
 		return requestLine;
 	}
