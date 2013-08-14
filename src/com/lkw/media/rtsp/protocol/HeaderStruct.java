@@ -506,128 +506,250 @@ public class HeaderStruct implements Serializable {
 	public HashMap<String,String> getAllValidField() {
 		HashMap<String,String> hm = new HashMap<String,String>();
 		if (this.accept != null) {
-			hm.put("Accept: ", this.accept);
+			hm.put("Accept", this.accept);
 		}
 		if (this.acceptEncoding != null) {
-			hm.put("Accept-Encoding: ", this.acceptEncoding);
+			hm.put("Accept-Encoding", this.acceptEncoding);
 		}
 		if (this.acceptLanguage != null) {
-			hm.put("Accept-Language: ", this.acceptLanguage);
+			hm.put("Accept-Language", this.acceptLanguage);
 		}
 		if (this.allow != null) {
-			hm.put("Allow: ", this.allow);
+			hm.put("Allow", this.allow);
 		}
 		if (this.authorization != null) {
-			hm.put("Authorization: ", this.authorization);
+			hm.put("Authorization", this.authorization);
 		}
 		if (this.bandwidth != null) {
-			hm.put("Bandwidth: ", this.bandwidth);
+			hm.put("Bandwidth", this.bandwidth);
 		}
 		if (this.blocksize != null) {
-			hm.put("Blocksize: ", this.blocksize);
+			hm.put("Blocksize", this.blocksize);
 		}
 		if (this.cacheControl != null) {
-			hm.put("Cache-Control: ", this.cacheControl);
+			hm.put("Cache-Control", this.cacheControl);
 		}
 		if (this.conference != null) {
-			hm.put("Conference: ", this.conference);
+			hm.put("Conference", this.conference);
 		}
 		if (this.connection != null) {
-			hm.put("Connection: ", this.connection);
+			hm.put("Connection", this.connection);
 		}
 		if (this.contentBase != null) {
-			hm.put("Content-Base: ", this.contentBase);
+			hm.put("Content-Base", this.contentBase);
 		}
 		if (this.contentEncoding != null) {
-			hm.put("Content-Encoding: ", this.contentEncoding);
+			hm.put("Content-Encoding", this.contentEncoding);
 		}
 		if (this.contentLanguage != null) {
-			hm.put("Content-Language: ", this.contentLanguage);
+			hm.put("Content-Language", this.contentLanguage);
 		}
 		if (this.contentLength != null) {
-			hm.put("Content-Length: ", this.contentLength);
+			hm.put("Content-Length", this.contentLength);
 		}
 		if (this.contentLocation != null) {
-			hm.put("Content-Location: ", this.contentLocation);
+			hm.put("Content-Location", this.contentLocation);
 		}
 		if (this.contentType != null) {
-			hm.put("Content-Type: ", this.contentType);
+			hm.put("Content-Type", this.contentType);
 		}
 		if (this.cSeq != null) {
-			hm.put("CSeq: ", this.cSeq);
+			hm.put("CSeq", this.cSeq);
 		}
 		if (this.date != null) {
-			hm.put("Date: ", this.date);
+			hm.put("Date", this.date);
 		}
 		if (this.expires != null) {
-			hm.put("Expires: ", this.expires);
+			hm.put("Expires", this.expires);
 		}
 		if (this.fromField != null) {
-			hm.put("From: ", this.fromField);
+			hm.put("From", this.fromField);
 		}
 		if (this.ifModifiedSince != null) {
-			hm.put("If-Modified-Since: ", this.ifModifiedSince);
+			hm.put("If-Modified-Since", this.ifModifiedSince);
 		}
 		if (this.lastModified != null) {
-			hm.put("Last-Modified: ", this.lastModified);
+			hm.put("Last-Modified", this.lastModified);
 		}
 		if (this.proxyAuth != null) {
-			hm.put("Proxy-Authenticate: ", this.proxyAuth);
+			hm.put("Proxy-Authenticate", this.proxyAuth);
 		}
 		if (this.proxyRequire != null) {
-			hm.put("Proxy-Require: ", this.proxyRequire);
+			hm.put("Proxy-Require", this.proxyRequire);
 		}
 		if (this.publicField != null) {
-			hm.put("Public: ", this.publicField);
+			hm.put("Public", this.publicField);
 		}
 		if (this.range != null) {
-			hm.put("Range: ", this.range);
+			hm.put("Range", this.range);
 		}
 		if (this.referer != null) {
-			hm.put("Referer: ", this.referer);
+			hm.put("Referer", this.referer);
 		}
 		if (this.require != null) {
-			hm.put("Require: ", this.require);
+			hm.put("Require", this.require);
 		}
 		if (this.retryAfter != null) {
-			hm.put("Retry-After: ", this.retryAfter);
+			hm.put("Retry-After", this.retryAfter);
 		}
 		if (this.rtpInfo != null) {
-			hm.put("RTP-Info: ", this.rtpInfo);
+			hm.put("RTP-Info", this.rtpInfo);
 		}
 		if (this.scale != null) {
-			hm.put("Scale: ", this.scale);
+			hm.put("Scale", this.scale);
 		}
 		if (this.session != null) {
-			hm.put("Session: ", this.session);
+			hm.put("Session", this.session);
 		}
 		if (this.server != null) {
-			hm.put("Server: ", this.server);
+			hm.put("Server", this.server);
 		}
 		if (this.speed != null) {
-			hm.put("Speed: ", this.speed);
+			hm.put("Speed", this.speed);
 		}
 		if (this.transport != null) {
-			hm.put("Transport: ", this.transport);
+			hm.put("Transport", this.transport);
 		}
 		if (this.unsupported != null) {
-			hm.put("Unsupported: ", this.unsupported);
+			hm.put("Unsupported", this.unsupported);
 		}
 		if (this.userAgent != null) {
-			hm.put("User-Agent: ", this.userAgent);
+			hm.put("User-Agent", this.userAgent);
 		}
 		if (this.via != null) {
-			hm.put("Via: ", this.via);
+			hm.put("Via", this.via);
 		}
 		if (this.vary != null) {
-			hm.put("Vary: ", this.vary);
+			hm.put("Vary", this.vary);
 		}
 		if (this.wwwAuth != null) {
-			hm.put("WWW-Authenticate: ", this.wwwAuth);
+			hm.put("WWW-Authenticate", this.wwwAuth);
 		}
 		
 		return hm;
 	}
 	
-	
+	public void setAllValidField(HashMap<String,String> hm) {
+		if (hm.containsKey("Accept")) {
+			this.accept = hm.get("Accept");
+		}
+		if (hm.containsKey("Accept-Encoding")) {
+			this.acceptEncoding = hm.get("Accept-Encoding");
+		}
+		if (hm.containsKey("Accept-Language")) {
+			this.acceptLanguage = hm.get("Accept-Language");
+		}
+		//
+		if (this.allow != null) {
+			hm.put("Allow", this.allow);
+		}
+		if (this.authorization != null) {
+			hm.put("Authorization", this.authorization);
+		}
+		if (this.bandwidth != null) {
+			hm.put("Bandwidth", this.bandwidth);
+		}
+		if (this.blocksize != null) {
+			hm.put("Blocksize", this.blocksize);
+		}
+		if (this.cacheControl != null) {
+			hm.put("Cache-Control", this.cacheControl);
+		}
+		if (this.conference != null) {
+			hm.put("Conference", this.conference);
+		}
+		if (this.connection != null) {
+			hm.put("Connection", this.connection);
+		}
+		if (this.contentBase != null) {
+			hm.put("Content-Base", this.contentBase);
+		}
+		if (this.contentEncoding != null) {
+			hm.put("Content-Encoding", this.contentEncoding);
+		}
+		if (this.contentLanguage != null) {
+			hm.put("Content-Language", this.contentLanguage);
+		}
+		if (this.contentLength != null) {
+			hm.put("Content-Length", this.contentLength);
+		}
+		if (this.contentLocation != null) {
+			hm.put("Content-Location", this.contentLocation);
+		}
+		if (this.contentType != null) {
+			hm.put("Content-Type", this.contentType);
+		}
+		if (this.cSeq != null) {
+			hm.put("CSeq", this.cSeq);
+		}
+		if (this.date != null) {
+			hm.put("Date", this.date);
+		}
+		if (this.expires != null) {
+			hm.put("Expires", this.expires);
+		}
+		if (this.fromField != null) {
+			hm.put("From", this.fromField);
+		}
+		if (this.ifModifiedSince != null) {
+			hm.put("If-Modified-Since", this.ifModifiedSince);
+		}
+		if (this.lastModified != null) {
+			hm.put("Last-Modified", this.lastModified);
+		}
+		if (this.proxyAuth != null) {
+			hm.put("Proxy-Authenticate", this.proxyAuth);
+		}
+		if (this.proxyRequire != null) {
+			hm.put("Proxy-Require", this.proxyRequire);
+		}
+		if (this.publicField != null) {
+			hm.put("Public", this.publicField);
+		}
+		if (this.range != null) {
+			hm.put("Range", this.range);
+		}
+		if (this.referer != null) {
+			hm.put("Referer", this.referer);
+		}
+		if (this.require != null) {
+			hm.put("Require", this.require);
+		}
+		if (this.retryAfter != null) {
+			hm.put("Retry-After", this.retryAfter);
+		}
+		if (this.rtpInfo != null) {
+			hm.put("RTP-Info", this.rtpInfo);
+		}
+		if (this.scale != null) {
+			hm.put("Scale", this.scale);
+		}
+		if (this.session != null) {
+			hm.put("Session", this.session);
+		}
+		if (this.server != null) {
+			hm.put("Server", this.server);
+		}
+		if (this.speed != null) {
+			hm.put("Speed", this.speed);
+		}
+		if (this.transport != null) {
+			hm.put("Transport", this.transport);
+		}
+		if (this.unsupported != null) {
+			hm.put("Unsupported", this.unsupported);
+		}
+		if (this.userAgent != null) {
+			hm.put("User-Agent", this.userAgent);
+		}
+		if (this.via != null) {
+			hm.put("Via", this.via);
+		}
+		if (this.vary != null) {
+			hm.put("Vary", this.vary);
+		}
+		if (this.wwwAuth != null) {
+			hm.put("WWW-Authenticate", this.wwwAuth);
+		}
+	}
 }

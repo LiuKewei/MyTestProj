@@ -8,10 +8,10 @@ public class StatusLine implements Serializable {
 	 */
 	private static final long serialVersionUID = -4524435777143554923L;
 	private RTSPVersion version;
-	private int statusCode;
+	private String statusCode;
 	private String reasonPhrase;
 
-	public StatusLine(RTSPVersion version, int statusCode,
+	public StatusLine(RTSPVersion version, String statusCode,
 			String reasonPhrase) {
 		this.version = version;
 		this.statusCode = statusCode;
@@ -26,11 +26,11 @@ public class StatusLine implements Serializable {
 		this.version = version;
 	}
 
-	public int getStatusCode() {
+	public String getStatusCode() {
 		return statusCode;
 	}
 
-	public void setStatusCode(int statusCode) {
+	public void setStatusCode(String statusCode) {
 		this.statusCode = statusCode;
 	}
 

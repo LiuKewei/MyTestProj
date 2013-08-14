@@ -109,9 +109,9 @@ public class RtspServer implements Runnable {
 			RTSPResponse resp = null;
 			if (request.getRequest().getRequestLine().getMethod() == Method.TEARDOWN) {
 				terminal_flag = true;
-				resp = new RTSPResponse(new StatusLine(new RTSPVersion("1","0"), 400, "error"), request.getRequest().getHeader(), request.getRequest().getBody());
+				resp = new RTSPResponse(new StatusLine(new RTSPVersion("1","0"), "400", "error"), request.getRequest().getHeader(), request.getRequest().getBody());
 			} else {
-				resp = new RTSPResponse(new StatusLine(new RTSPVersion("1","0"), 200, "ok"), request.getRequest().getHeader(), request.getRequest().getBody());
+				resp = new RTSPResponse(new StatusLine(new RTSPVersion("1","0"), "200", "ok"), request.getRequest().getHeader(), request.getRequest().getBody());
 			}
 			
 			RTSPPdu response = new RTSPPdu(resp);
