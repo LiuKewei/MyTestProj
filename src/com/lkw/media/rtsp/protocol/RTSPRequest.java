@@ -2,6 +2,8 @@ package com.lkw.media.rtsp.protocol;
 
 import java.io.Serializable;
 
+import org.apache.catalina.tribes.util.Arrays;
+
 
 public class RTSPRequest implements Serializable {
 
@@ -37,6 +39,19 @@ public class RTSPRequest implements Serializable {
 	}
 	public void setBody(byte[] body) {
 		this.body = body;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName() + " {\n\t\t");
+		sb.append(this.requestLine.toString());
+		sb.append("\n\t\t");
+		sb.append(this.header.toString());
+		sb.append("\n\t\t");
+		sb.append("Body : " + Arrays.toString(this.body));
+		sb.append("\n\t}");
+		return sb.toString();
 	}
 
 }

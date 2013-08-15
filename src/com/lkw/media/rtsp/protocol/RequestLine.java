@@ -39,7 +39,17 @@ public class RequestLine implements Serializable {
 		this.version = version;
 	}
 
-	
-	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName() + " {\n\t\t\t");
+		sb.append("Method : " + this.method.toString());
+		sb.append("\n\t\t\t");
+		sb.append("RequestURI : " + this.requestURI);
+		sb.append("\n\t\t\t");
+		sb.append(this.version.toString());
+		sb.append("\n\t\t}");
+		return sb.toString();
+	}
+
 }

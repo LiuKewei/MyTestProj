@@ -41,6 +41,18 @@ public class StatusLine implements Serializable {
 	public void setReasonPhrase(String reasonPhrase) {
 		this.reasonPhrase = reasonPhrase;
 	}
-	
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName() + " {\n\t\t\t");
+		sb.append(this.version.toString());
+		sb.append("\n\t\t\t");
+		sb.append("StatusCode : " + this.statusCode);
+		sb.append("\n\t\t\t");
+		sb.append("ReasonPhrase : " + this.reasonPhrase);
+		sb.append("\n\t\t}");
+		return sb.toString();
+	}
 	
 }

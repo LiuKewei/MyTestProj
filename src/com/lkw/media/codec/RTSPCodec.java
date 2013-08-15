@@ -8,8 +8,9 @@ import java.util.Set;
 import org.springframework.util.Assert;
 
 import com.lkw.media.rtsp.protocol.HeaderStruct;
+import com.lkw.media.rtsp.protocol.Method;
+import com.lkw.media.rtsp.protocol.RTSPErronousMsg;
 import com.lkw.media.rtsp.protocol.RTSPPdu;
-import com.lkw.media.rtsp.protocol.RTSPPdu.PduType;
 import com.lkw.media.rtsp.protocol.RTSPResponse;
 import com.lkw.media.rtsp.protocol.RTSPVersion;
 import com.lkw.media.rtsp.protocol.RequestLine;
@@ -28,7 +29,8 @@ public class RTSPCodec {
 				String[] fields = tmpstr.split(CRLF);
 				String[] statusLine = fields[0].split(" ");
 				Assert.isTrue(statusLine.length == 3);
-				StatusLine slobj = new StatusLine(new RTSPVersion(statusLine[0].split(".")[0].split("/")[1], statusLine[0].split(".")[1]), statusLine[1], statusLine[2]);
+				String[] version = statusLine[0].split("\\.");
+				StatusLine slobj = new StatusLine(new RTSPVersion(version[0].split("/")[1], version[1]), statusLine[1], statusLine[2]);
 				HeaderStruct header = new HeaderStruct();
 				HashMap<String, String> hm = new HashMap<String, String>();
 				for (int idx = 1; idx < fields.length; idx++) {
@@ -37,8 +39,12 @@ public class RTSPCodec {
 				header.setAllValidField(hm);
 				RTSPResponse resp = new RTSPResponse(slobj, header, null);
 				pdu = new RTSPPdu((Object) resp);
-			} else {
+			} else if (Method.matchAnyEnum(tmpstr)) {
 				
+			} else {
+				RTSPErronousMsg errMsg = new RTSPErronousMsg();
+				errMsg.setMsg(tmpstr);
+				pdu = new RTSPPdu((Object) errMsg);
 			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -47,15 +53,14 @@ public class RTSPCodec {
 		return pdu;
 	}
 
-	public static byte[] RTSPEncode(RTSPPdu pdu, PduType type) {
+	public static byte[] RTSPEncode(RTSPPdu pdu) {
 		StringBuilder sb = new StringBuilder();
-
-		switch (type) {
+		switch (pdu.getPduType()) {
 		case REQ:
 			RequestLine rl = pdu.getRequest().getRequestLine();
 			sb.append(rl.getMethod().toString() + " ")
 					.append(rl.getRequestURI() + " ")
-					.append(rl.getVersion().toString() + CRLF);
+					.append(rl.getVersion().toEncodeString() + CRLF);
 			HeaderStruct hs = pdu.getRequest().getHeader();
 			HashMap<String, String> hm = hs.getAllValidField();
 			Set<String> hmKeys = hm.keySet();

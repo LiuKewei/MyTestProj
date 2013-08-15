@@ -3,9 +3,11 @@ package com.lkw.media.rtsp.protocol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 public class HeaderStruct implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -39,13 +41,16 @@ public class HeaderStruct implements Serializable {
 	private String proxyRequire = null; // 12/27
 	private String publicField = null; // 12.28
 	private String range = null; // 12.29
-	private String rdtFeatureLevel = null; // additional fields found in James's log
-	private String realChallenge1 = null; // additional fields found in James's log
+	private String rdtFeatureLevel = null; // additional fields found in James's
+											// log
+	private String realChallenge1 = null; // additional fields found in James's
+											// log
 	private String reconnect = null; // additional fields found in James's log
 	private String referer = null; // 12.30
 	private String retryAfter = null; // 12.31
 	private String require = null; // 12.32
-	private String rtcpInterval = null; // additional fields found in James's log
+	private String rtcpInterval = null; // additional fields found in James's
+										// log
 	private String rtpInfo = null; // 12.33
 	private String scale = null; // 12.34
 	private String speed = null; // 12.35
@@ -60,13 +65,18 @@ public class HeaderStruct implements Serializable {
 	private String via = null; // 12.43
 	private String vsrc = null; // additional fields found in James's log
 	private String wwwAuth = null; // 12.44
-	private String xRealUsestrackid = null;// additional fields found in James's log
+	private String xRealUsestrackid = null;// additional fields found in James's
+											// log
 	private String xVigBno = null; // additional fields found in James's log
 	private String xVigMsisdn = null; // additional
-	private String xRetransmit = null; // additional fields found in log of Anders
-	private String xDynamicRate = null; // additional fields found in log of Anders
-	private String xTransportOptions = null; // additional fields found in log of Anders
-	private String xPrebuffer = null; // additional fields found in log of Anders
+	private String xRetransmit = null; // additional fields found in log of
+										// Anders
+	private String xDynamicRate = null; // additional fields found in log of
+										// Anders
+	private String xTransportOptions = null; // additional fields found in log
+												// of Anders
+	private String xPrebuffer = null; // additional fields found in log of
+										// Anders
 	private String xAction = null; // Interface Description RTSPx
 	private String xEncodingFiles = null; // Interface Description RTSPx
 	private String xUdpPipe = null; // Interface Description RTSPx
@@ -77,434 +87,574 @@ public class HeaderStruct implements Serializable {
 	private String xUserPlaneDest = null; // Interface Description RTSPx
 	private String xFluteBitrate = null; // Interface Description RTSPx
 	private String xTsi = null; // Interface Description RTSPx
-	private String xContentFdtSendInterval = null; // Interface Description RTSPx
+	private String xContentFdtSendInterval = null; // Interface Description
+													// RTSPx
 	private String xReporting = null; // Interface Description RTSPx
 	// extensionHeaders:
 	private ArrayList<HeaderLine> extensionHeaders = null;
-	
+
 	public String getAccept() {
 		return accept;
 	}
+
 	public void setAccept(String accept) {
 		this.accept = accept;
 	}
+
 	public String getAcceptEncoding() {
 		return acceptEncoding;
 	}
+
 	public void setAcceptEncoding(String acceptEncoding) {
 		this.acceptEncoding = acceptEncoding;
 	}
+
 	public String getAcceptLanguage() {
 		return acceptLanguage;
 	}
+
 	public void setAcceptLanguage(String acceptLanguage) {
 		this.acceptLanguage = acceptLanguage;
 	}
+
 	public String getAllow() {
 		return allow;
 	}
+
 	public void setAllow(String allow) {
 		this.allow = allow;
 	}
+
 	public String getAuthorization() {
 		return authorization;
 	}
+
 	public void setAuthorization(String authorization) {
 		this.authorization = authorization;
 	}
+
 	public String getBandwidth() {
 		return bandwidth;
 	}
+
 	public void setBandwidth(String bandwidth) {
 		this.bandwidth = bandwidth;
 	}
+
 	public String getBlocksize() {
 		return blocksize;
 	}
+
 	public void setBlocksize(String blocksize) {
 		this.blocksize = blocksize;
 	}
+
 	public String getCacheControl() {
 		return cacheControl;
 	}
+
 	public void setCacheControl(String cacheControl) {
 		this.cacheControl = cacheControl;
 	}
+
 	public String getConference() {
 		return conference;
 	}
+
 	public void setConference(String conference) {
 		this.conference = conference;
 	}
+
 	public String getConnection() {
 		return connection;
 	}
+
 	public void setConnection(String connection) {
 		this.connection = connection;
 	}
+
 	public String getContentBase() {
 		return contentBase;
 	}
+
 	public void setContentBase(String contentBase) {
 		this.contentBase = contentBase;
 	}
+
 	public String getContentEncoding() {
 		return contentEncoding;
 	}
+
 	public void setContentEncoding(String contentEncoding) {
 		this.contentEncoding = contentEncoding;
 	}
+
 	public String getContentLanguage() {
 		return contentLanguage;
 	}
+
 	public void setContentLanguage(String contentLanguage) {
 		this.contentLanguage = contentLanguage;
 	}
+
 	public String getContentLength() {
 		return contentLength;
 	}
+
 	public void setContentLength(String contentLength) {
 		this.contentLength = contentLength;
 	}
+
 	public String getContentLocation() {
 		return contentLocation;
 	}
+
 	public void setContentLocation(String contentLocation) {
 		this.contentLocation = contentLocation;
 	}
+
 	public String getContentType() {
 		return contentType;
 	}
+
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
+
 	public String getcSeq() {
 		return cSeq;
 	}
+
 	public void setcSeq(String cSeq) {
 		this.cSeq = cSeq;
 	}
+
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
+
 	public String getExpires() {
 		return expires;
 	}
+
 	public void setExpires(String expires) {
 		this.expires = expires;
 	}
+
 	public String getFromField() {
 		return fromField;
 	}
+
 	public void setFromField(String fromField) {
 		this.fromField = fromField;
 	}
+
 	public String getHost() {
 		return host;
 	}
+
 	public void setHost(String host) {
 		this.host = host;
 	}
+
 	public String getIfMatch() {
 		return ifMatch;
 	}
+
 	public void setIfMatch(String ifMatch) {
 		this.ifMatch = ifMatch;
 	}
+
 	public String getIfModifiedSince() {
 		return ifModifiedSince;
 	}
+
 	public void setIfModifiedSince(String ifModifiedSince) {
 		this.ifModifiedSince = ifModifiedSince;
 	}
+
 	public String getLastModified() {
 		return lastModified;
 	}
+
 	public void setLastModified(String lastModified) {
 		this.lastModified = lastModified;
 	}
+
 	public String getLocation() {
 		return location;
 	}
+
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
 	public String getProxyAuth() {
 		return proxyAuth;
 	}
+
 	public void setProxyAuth(String proxyAuth) {
 		this.proxyAuth = proxyAuth;
 	}
+
 	public String getProxyRequire() {
 		return proxyRequire;
 	}
+
 	public void setProxyRequire(String proxyRequire) {
 		this.proxyRequire = proxyRequire;
 	}
+
 	public String getPublicField() {
 		return publicField;
 	}
+
 	public void setPublicField(String publicField) {
 		this.publicField = publicField;
 	}
+
 	public String getRange() {
 		return range;
 	}
+
 	public void setRange(String range) {
 		this.range = range;
 	}
+
 	public String getRdtFeatureLevel() {
 		return rdtFeatureLevel;
 	}
+
 	public void setRdtFeatureLevel(String rdtFeatureLevel) {
 		this.rdtFeatureLevel = rdtFeatureLevel;
 	}
+
 	public String getRealChallenge1() {
 		return realChallenge1;
 	}
+
 	public void setRealChallenge1(String realChallenge1) {
 		this.realChallenge1 = realChallenge1;
 	}
+
 	public String getReconnect() {
 		return reconnect;
 	}
+
 	public void setReconnect(String reconnect) {
 		this.reconnect = reconnect;
 	}
+
 	public String getReferer() {
 		return referer;
 	}
+
 	public void setReferer(String referer) {
 		this.referer = referer;
 	}
+
 	public String getRetryAfter() {
 		return retryAfter;
 	}
+
 	public void setRetryAfter(String retryAfter) {
 		this.retryAfter = retryAfter;
 	}
+
 	public String getRequire() {
 		return require;
 	}
+
 	public void setRequire(String require) {
 		this.require = require;
 	}
+
 	public String getRtcpInterval() {
 		return rtcpInterval;
 	}
+
 	public void setRtcpInterval(String rtcpInterval) {
 		this.rtcpInterval = rtcpInterval;
 	}
+
 	public String getRtpInfo() {
 		return rtpInfo;
 	}
+
 	public void setRtpInfo(String rtpInfo) {
 		this.rtpInfo = rtpInfo;
 	}
+
 	public String getScale() {
 		return scale;
 	}
+
 	public void setScale(String scale) {
 		this.scale = scale;
 	}
+
 	public String getSpeed() {
 		return speed;
 	}
+
 	public void setSpeed(String speed) {
 		this.speed = speed;
 	}
+
 	public String getServer() {
 		return server;
 	}
+
 	public void setServer(String server) {
 		this.server = server;
 	}
+
 	public String getSession() {
 		return session;
 	}
+
 	public void setSession(String session) {
 		this.session = session;
 	}
+
 	public String getStatsMask() {
 		return statsMask;
 	}
+
 	public void setStatsMask(String statsMask) {
 		this.statsMask = statsMask;
 	}
+
 	public String getTimeStamp() {
 		return timeStamp;
 	}
+
 	public void setTimeStamp(String timeStamp) {
 		this.timeStamp = timeStamp;
 	}
+
 	public String getTransport() {
 		return transport;
 	}
+
 	public void setTransport(String transport) {
 		this.transport = transport;
 	}
+
 	public String getUnsupported() {
 		return unsupported;
 	}
+
 	public void setUnsupported(String unsupported) {
 		this.unsupported = unsupported;
 	}
+
 	public String getUserAgent() {
 		return userAgent;
 	}
+
 	public void setUserAgent(String userAgent) {
 		this.userAgent = userAgent;
 	}
+
 	public String getVary() {
 		return vary;
 	}
+
 	public void setVary(String vary) {
 		this.vary = vary;
 	}
+
 	public String getVia() {
 		return via;
 	}
+
 	public void setVia(String via) {
 		this.via = via;
 	}
+
 	public String getVsrc() {
 		return vsrc;
 	}
+
 	public void setVsrc(String vsrc) {
 		this.vsrc = vsrc;
 	}
+
 	public String getWwwAuth() {
 		return wwwAuth;
 	}
+
 	public void setWwwAuth(String wwwAuth) {
 		this.wwwAuth = wwwAuth;
 	}
+
 	public String getxRealUsestrackid() {
 		return xRealUsestrackid;
 	}
+
 	public void setxRealUsestrackid(String xRealUsestrackid) {
 		this.xRealUsestrackid = xRealUsestrackid;
 	}
+
 	public String getxVigBno() {
 		return xVigBno;
 	}
+
 	public void setxVigBno(String xVigBno) {
 		this.xVigBno = xVigBno;
 	}
+
 	public String getxVigMsisdn() {
 		return xVigMsisdn;
 	}
+
 	public void setxVigMsisdn(String xVigMsisdn) {
 		this.xVigMsisdn = xVigMsisdn;
 	}
+
 	public String getxRetransmit() {
 		return xRetransmit;
 	}
+
 	public void setxRetransmit(String xRetransmit) {
 		this.xRetransmit = xRetransmit;
 	}
+
 	public String getxDynamicRate() {
 		return xDynamicRate;
 	}
+
 	public void setxDynamicRate(String xDynamicRate) {
 		this.xDynamicRate = xDynamicRate;
 	}
+
 	public String getxTransportOptions() {
 		return xTransportOptions;
 	}
+
 	public void setxTransportOptions(String xTransportOptions) {
 		this.xTransportOptions = xTransportOptions;
 	}
+
 	public String getxPrebuffer() {
 		return xPrebuffer;
 	}
+
 	public void setxPrebuffer(String xPrebuffer) {
 		this.xPrebuffer = xPrebuffer;
 	}
+
 	public String getxAction() {
 		return xAction;
 	}
+
 	public void setxAction(String xAction) {
 		this.xAction = xAction;
 	}
+
 	public String getxEncodingFiles() {
 		return xEncodingFiles;
 	}
+
 	public void setxEncodingFiles(String xEncodingFiles) {
 		this.xEncodingFiles = xEncodingFiles;
 	}
+
 	public String getxUdpPipe() {
 		return xUdpPipe;
 	}
+
 	public void setxUdpPipe(String xUdpPipe) {
 		this.xUdpPipe = xUdpPipe;
 	}
+
 	public String getxMbmsSync() {
 		return xMbmsSync;
 	}
+
 	public void setxMbmsSync(String xMbmsSync) {
 		this.xMbmsSync = xMbmsSync;
 	}
+
 	public String getxBandwidth() {
 		return xBandwidth;
 	}
+
 	public void setxBandwidth(String xBandwidth) {
 		this.xBandwidth = xBandwidth;
 	}
+
 	public String getxContent() {
 		return xContent;
 	}
+
 	public void setxContent(String xContent) {
 		this.xContent = xContent;
 	}
+
 	public String getxFec() {
 		return xFec;
 	}
+
 	public void setxFec(String xFec) {
 		this.xFec = xFec;
 	}
+
 	public String getxUserPlaneDest() {
 		return xUserPlaneDest;
 	}
+
 	public void setxUserPlaneDest(String xUserPlaneDest) {
 		this.xUserPlaneDest = xUserPlaneDest;
 	}
+
 	public String getxFluteBitrate() {
 		return xFluteBitrate;
 	}
+
 	public void setxFluteBitrate(String xFluteBitrate) {
 		this.xFluteBitrate = xFluteBitrate;
 	}
+
 	public String getxTsi() {
 		return xTsi;
 	}
+
 	public void setxTsi(String xTsi) {
 		this.xTsi = xTsi;
 	}
+
 	public String getxContentFdtSendInterval() {
 		return xContentFdtSendInterval;
 	}
+
 	public void setxContentFdtSendInterval(String xContentFdtSendInterval) {
 		this.xContentFdtSendInterval = xContentFdtSendInterval;
 	}
+
 	public String getxReporting() {
 		return xReporting;
 	}
+
 	public void setxReporting(String xReporting) {
 		this.xReporting = xReporting;
 	}
+
 	public ArrayList<HeaderLine> getExtensionHeaders() {
 		return extensionHeaders;
 	}
+
 	public void setExtensionHeaders(ArrayList<HeaderLine> extensionHeaders) {
 		this.extensionHeaders = extensionHeaders;
 	}
-	
-	public HashMap<String,String> getAllValidField() {
-		HashMap<String,String> hm = new HashMap<String,String>();
+
+	public HashMap<String, String> getAllValidField() {
+		HashMap<String, String> hm = new HashMap<String, String>();
 		if (this.accept != null) {
 			hm.put("Accept", this.accept);
 		}
@@ -625,11 +775,11 @@ public class HeaderStruct implements Serializable {
 		if (this.wwwAuth != null) {
 			hm.put("WWW-Authenticate", this.wwwAuth);
 		}
-		
+
 		return hm;
 	}
-	
-	public void setAllValidField(HashMap<String,String> hm) {
+
+	public void setAllValidField(HashMap<String, String> hm) {
 		if (hm.containsKey("Accept")) {
 			this.accept = hm.get("Accept");
 		}
@@ -639,117 +789,133 @@ public class HeaderStruct implements Serializable {
 		if (hm.containsKey("Accept-Language")) {
 			this.acceptLanguage = hm.get("Accept-Language");
 		}
-		//
-		if (this.allow != null) {
-			hm.put("Allow", this.allow);
+		if (hm.containsKey("Allow")) {
+			this.allow = hm.get("Allow");
 		}
-		if (this.authorization != null) {
-			hm.put("Authorization", this.authorization);
+		if (hm.containsKey("Authorization")) {
+			this.authorization = hm.get("Authorization");
 		}
-		if (this.bandwidth != null) {
-			hm.put("Bandwidth", this.bandwidth);
+		if (hm.containsKey("Bandwidth")) {
+			this.bandwidth = hm.get("Bandwidth");
 		}
-		if (this.blocksize != null) {
-			hm.put("Blocksize", this.blocksize);
+		if (hm.containsKey("Blocksize")) {
+			this.blocksize = hm.get("Blocksize");
 		}
-		if (this.cacheControl != null) {
-			hm.put("Cache-Control", this.cacheControl);
+		if (hm.containsKey("Cache-Control")) {
+			this.cacheControl = hm.get("Cache-Control");
 		}
-		if (this.conference != null) {
-			hm.put("Conference", this.conference);
+		if (hm.containsKey("Conference")) {
+			this.conference = hm.get("Conference");
 		}
-		if (this.connection != null) {
-			hm.put("Connection", this.connection);
+		if (hm.containsKey("Connection")) {
+			this.connection = hm.get("Connection");
 		}
-		if (this.contentBase != null) {
-			hm.put("Content-Base", this.contentBase);
+		if (hm.containsKey("Content-Base")) {
+			this.contentBase = hm.get("Content-Base");
 		}
-		if (this.contentEncoding != null) {
-			hm.put("Content-Encoding", this.contentEncoding);
+		if (hm.containsKey("Content-Encoding")) {
+			this.contentEncoding = hm.get("Content-Encoding");
 		}
-		if (this.contentLanguage != null) {
-			hm.put("Content-Language", this.contentLanguage);
+		if (hm.containsKey("Content-Language")) {
+			this.contentLanguage = hm.get("Content-Language");
 		}
-		if (this.contentLength != null) {
-			hm.put("Content-Length", this.contentLength);
+		if (hm.containsKey("Content-Length")) {
+			this.contentLength = hm.get("Content-Length");
 		}
-		if (this.contentLocation != null) {
-			hm.put("Content-Location", this.contentLocation);
+		if (hm.containsKey("Content-Location")) {
+			this.contentLocation = hm.get("Content-Location");
 		}
-		if (this.contentType != null) {
-			hm.put("Content-Type", this.contentType);
+		if (hm.containsKey("Content-Type")) {
+			this.contentType = hm.get("Content-Type");
 		}
-		if (this.cSeq != null) {
-			hm.put("CSeq", this.cSeq);
+		if (hm.containsKey("CSeq")) {
+			this.cSeq = hm.get("CSeq");
 		}
-		if (this.date != null) {
-			hm.put("Date", this.date);
+		if (hm.containsKey("Date")) {
+			this.date = hm.get("Date");
 		}
-		if (this.expires != null) {
-			hm.put("Expires", this.expires);
+		if (hm.containsKey("Expires")) {
+			this.expires = hm.get("Expires");
 		}
-		if (this.fromField != null) {
-			hm.put("From", this.fromField);
+		if (hm.containsKey("From")) {
+			this.fromField = hm.get("From");
 		}
-		if (this.ifModifiedSince != null) {
-			hm.put("If-Modified-Since", this.ifModifiedSince);
+		if (hm.containsKey("If-Modified-Since")) {
+			this.ifModifiedSince = hm.get("If-Modified-Since");
 		}
-		if (this.lastModified != null) {
-			hm.put("Last-Modified", this.lastModified);
+		if (hm.containsKey("Last-Modified")) {
+			this.lastModified = hm.get("Last-Modified");
 		}
-		if (this.proxyAuth != null) {
-			hm.put("Proxy-Authenticate", this.proxyAuth);
+		if (hm.containsKey("Proxy-Authenticate")) {
+			this.proxyAuth = hm.get("Proxy-Authenticate");
 		}
-		if (this.proxyRequire != null) {
-			hm.put("Proxy-Require", this.proxyRequire);
+		if (hm.containsKey("Proxy-Require")) {
+			this.proxyRequire = hm.get("Proxy-Require");
 		}
-		if (this.publicField != null) {
-			hm.put("Public", this.publicField);
+		if (hm.containsKey("Public")) {
+			this.publicField = hm.get("Public");
 		}
-		if (this.range != null) {
-			hm.put("Range", this.range);
+		if (hm.containsKey("Range")) {
+			this.range = hm.get("Range");
 		}
-		if (this.referer != null) {
-			hm.put("Referer", this.referer);
+		if (hm.containsKey("Referer")) {
+			this.referer = hm.get("Referer");
 		}
-		if (this.require != null) {
-			hm.put("Require", this.require);
+		if (hm.containsKey("Require")) {
+			this.require = hm.get("Require");
 		}
-		if (this.retryAfter != null) {
-			hm.put("Retry-After", this.retryAfter);
+		if (hm.containsKey("Retry-After")) {
+			this.retryAfter = hm.get("Retry-After");
 		}
-		if (this.rtpInfo != null) {
-			hm.put("RTP-Info", this.rtpInfo);
+		if (hm.containsKey("RTP-Info")) {
+			this.rtpInfo = hm.get("RTP-Info");
 		}
-		if (this.scale != null) {
-			hm.put("Scale", this.scale);
+		if (hm.containsKey("Scale")) {
+			this.scale = hm.get("Scale");
 		}
-		if (this.session != null) {
-			hm.put("Session", this.session);
+		if (hm.containsKey("Session")) {
+			this.session = hm.get("Session");
 		}
-		if (this.server != null) {
-			hm.put("Server", this.server);
-		}
-		if (this.speed != null) {
-			hm.put("Speed", this.speed);
-		}
-		if (this.transport != null) {
-			hm.put("Transport", this.transport);
-		}
-		if (this.unsupported != null) {
-			hm.put("Unsupported", this.unsupported);
-		}
-		if (this.userAgent != null) {
-			hm.put("User-Agent", this.userAgent);
-		}
-		if (this.via != null) {
-			hm.put("Via", this.via);
-		}
-		if (this.vary != null) {
-			hm.put("Vary", this.vary);
-		}
-		if (this.wwwAuth != null) {
-			hm.put("WWW-Authenticate", this.wwwAuth);
-		}
+		// if (this.server != null) {
+		// hm.containsKey("Server", this.server);
+		// }
+		// if (this.speed != null) {
+		// hm.containsKey("Speed", this.speed);
+		// }
+		// if (this.transport != null) {
+		// hm.containsKey("Transport", this.transport);
+		// }
+		// if (this.unsupported != null) {
+		// hm.containsKey("Unsupported", this.unsupported);
+		// }
+		// if (this.userAgent != null) {
+		// hm.containsKey("User-Agent", this.userAgent);
+		// }
+		// if (this.via != null) {
+		// hm.containsKey("Via", this.via);
+		// }
+		// if (this.vary != null) {
+		// hm.containsKey("Vary", this.vary);
+		// }
+		// if (this.wwwAuth != null) {
+		// hm.containsKey("WWW-Authenticate", this.wwwAuth);
+		// }
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName() + " {\n\t\t\t");
+		HashMap<String,String> hm = this.getAllValidField();
+		Set<String> hmKeys = hm.keySet();
+		Iterator<String> it = hmKeys.iterator();
+		while (it.hasNext()) {
+			String key = it.next();
+			sb.append(key + " : " + hm.get(key));
+			sb.append("\n\t\t\t");
+		}
+		sb.append("\n\t\t}");
+		return sb.toString();
+	}
+
 }

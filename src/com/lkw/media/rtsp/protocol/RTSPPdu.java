@@ -51,5 +51,29 @@ public class RTSPPdu implements Serializable {
 		this.erronousMsg = erronousMsg;
 	}
 
+	@Override
+	public String toString() {
+		String pduStr = null;
+		if (this.request != null) {
+			pduStr = this.request.toString();
+		} else if (this.response != null) {
+			pduStr = this.response.toString();
+		} else if (this.erronousMsg != null) {
+			pduStr = this.erronousMsg.toString();
+		}
+		return "RTSP PDU {\n\t" + pduStr + "\n}";
+	}
+	
+public PduType getPduType() {
+	PduType type = null;
+	if (this.getRequest() != null) {
+		type = PduType.REQ;
+	} else if (this.getResponse() != null) {
+		type = PduType.RESP;
+	} else if (this.getErronous_msg() != null) {
+		type = PduType.ERR;
+	}
+	return type;
+}
 	
 }

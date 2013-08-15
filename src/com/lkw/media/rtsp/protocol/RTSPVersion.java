@@ -31,7 +31,16 @@ public class RTSPVersion implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "RTSP/" + this.major + "." + this.minor;
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName() + " {\n\t\t\t\t");
+		sb.append("Major : " + this.major);
+		sb.append("\n\t\t\t\t");
+		sb.append("Minor : " + this.minor);
+		sb.append("\n\t\t\t}");
+		return sb.toString();
 	}
 	
+	public String toEncodeString() {
+		return "RTSP/" + this.major + "." + this.minor;
+	}
 }
