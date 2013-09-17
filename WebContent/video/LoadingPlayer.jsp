@@ -28,7 +28,7 @@
 	<!-- IE 
 	<OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
 		width="640" height="480" id="vlc" events="True">
-		<param name="MRL" value="rtsp://192.168.229.1/01.ts" />
+		<param name="MRL" value="rtsp://localhost/01.ts" />
 		<param name="ShowDisplay" value="True" />
 		<param name="AutoLoop" value="False" />
 		<param name="AutoPlay" value="False" />
@@ -45,7 +45,7 @@
 	<EMBED type="application/x-vlc-plugin" version="VideoLAN.VLCPlugin.2"
 		width="640" height="480" toolbar="true" text="Waiting for video"
 		autoplay="no" loop="no" hidden="no" name="vlc"
-		target="rtsp://192.168.1.103/01.ts">
+		target="rtsp://localhost/01.ts">
 	</EMBED>
 </body>
 </html>
