@@ -4,7 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.apache.catalina.tribes.util.Arrays;
 import org.springframework.util.Assert;
 
 import com.lkw.media.rtsp.protocol.HeaderStruct;
@@ -18,6 +21,9 @@ import com.lkw.media.rtsp.protocol.StatusLine;
 
 public class RTSPCodec {
 
+	private final static Logger logger = Logger.getLogger(RTSPCodec.class
+			.getName());
+	
 	private final static String CRLF = "\r\n";
 
 	public static RTSPPdu RTSPDecode(byte[] bytes) {
@@ -50,6 +56,7 @@ public class RTSPCodec {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		logger.log(Level.INFO, "Decode As : \n" + pdu.toString());
 		return pdu;
 	}
 
@@ -87,6 +94,7 @@ public class RTSPCodec {
 			e.printStackTrace();
 		}
 
+		logger.log(Level.INFO,"Encode As : \n\t" + Arrays.toString(bytes));
 		return bytes;
 	}
 }

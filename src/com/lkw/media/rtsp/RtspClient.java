@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,32 +34,21 @@ public class RtspClient implements Runnable {
 	private final static String serHost = RtspProperties.getInstance()
 			.getHost();
 
+	private Selector selector = null;
+	
 	@Override
 	public void run() {
 		SocketChannel socketChannel = null;
 		try {
-			socketChannel = SocketChannel.open();
+			System.out.println(serHost);
 			SocketAddress socketAddress = new InetSocketAddress(serHost,
 					serPort);
+			socketChannel = SocketChannel.open();
+			socketChannel.configureBlocking(false);
+			selector = Selector.open();
+			socketChannel.register(selector, SelectionKey.OP_CONNECT);
 			socketChannel.connect(socketAddress);
-			HeaderStruct hs = new HeaderStruct();
-			hs.setcSeq("1");
-			hs.setUserAgent("VLC media palyer(LIVE555 Streaming Media v2013.03.31)");
-			RTSPPdu pduReq = new RTSPPdu((Object) new RTSPRequest(
-					new RequestLine(Method.OPTIONS, "rtsp://localhost/01.ts",
-							new RTSPVersion("1", "0")), hs, null));
-			logger.log(Level.INFO, "Data Construct : \n" + pduReq.toString());
-			byte[] myRequestObject = RTSPCodec.RTSPEncode(pduReq);
-			logger.log(Level.INFO,
-					"Encode As : \n\t" + Arrays.toString(myRequestObject));
-			sendData(socketChannel, myRequestObject);
-
-			byte[] myResponseObject = receiveData(socketChannel);
-			logger.log(Level.INFO,
-					"Received Data : \n\t" + Arrays.toString(myResponseObject));
-			RTSPPdu pduResp = RTSPCodec.RTSPDecode(myResponseObject);
-			logger.log(Level.INFO, "Decode As : \n" + pduResp.toString());
-
+			listen(selector);
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, null, ex);
 		} finally {
@@ -66,15 +59,15 @@ public class RtspClient implements Runnable {
 		}
 	}
 
-	private void sendData(SocketChannel socketChannel,
-			byte[] myRequestObject) throws IOException {
-		ByteBuffer buffer = ByteBuffer.wrap(myRequestObject);
+	private void sendData(SocketChannel socketChannel, RTSPPdu myRequestObject)
+			throws IOException {
+		byte[] bytes = RTSPCodec.RTSPEncode(myRequestObject);
+		ByteBuffer buffer = ByteBuffer.wrap(bytes);
+		buffer.flip();
 		socketChannel.write(buffer);
-		socketChannel.socket().shutdownOutput();
 	}
 
-	private byte[] receiveData(SocketChannel socketChannel)
-			throws IOException {
+	private RTSPPdu receiveData(SocketChannel socketChannel) throws IOException {
 		byte[] bytes = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -89,14 +82,65 @@ public class RtspClient implements Runnable {
 				buffer.clear();
 			}
 			bytes = baos.toByteArray();
-			socketChannel.socket().shutdownInput();
 		} finally {
 			try {
 				baos.close();
 			} catch (Exception ex) {
 			}
 		}
-		return bytes;
+		logger.log(Level.INFO, "Received Data : \n\t" + Arrays.toString(bytes));
+		RTSPPdu pduResp = RTSPCodec.RTSPDecode(bytes);
+		return pduResp;
+	}
+
+	private void listen(Selector selector) throws Exception {
+		while (true) {
+			selector.select();
+			Set<SelectionKey> selectionkeys = selector.selectedKeys();
+			Iterator<SelectionKey> it = selectionkeys.iterator();
+			while (it.hasNext()) {
+				SelectionKey sk = it.next();
+				handleKey(sk);
+			}
+			selectionkeys.clear();
+		}
+	}
+
+	public void handleKey(SelectionKey sk) throws Exception {
+		SocketChannel client = null;
+
+		HeaderStruct hs = new HeaderStruct();
+		hs.setcSeq("1");
+		hs.setUserAgent("VLC media palyer(LIVE555 Streaming Media v2013.03.31)");
+		RTSPPdu pduReq = new RTSPPdu((Object) new RTSPRequest(new RequestLine(
+				Method.OPTIONS, "rtsp://localhost/01.ts", new RTSPVersion("1",
+						"0")), hs, null));
+		logger.log(Level.INFO, "Data Construct : \n" + pduReq.toString());
+
+		client = (SocketChannel) sk.channel();
+		if (sk.isConnectable()) {
+			System.out.println("client connect");
+			if (client.isConnectionPending()) {
+				client.finishConnect();
+				System.out.println("connect finished");
+				sendData(client, pduReq);
+			}
+			client.register(selector, SelectionKey.OP_READ);
+		} else if (sk.isReadable()) {
+			receiveData(client);
+			client.register(selector, SelectionKey.OP_WRITE);
+		} else if (sk.isWritable()) {
+			pduReq.getRequest().getRequestLine().setMethod(Method.DESCRIBE);
+			pduReq.getRequest()
+					.getHeader()
+					.setcSeq(
+							Integer.parseInt(pduReq.getRequest().getHeader()
+									.getcSeq())
+									+ 1 + "");
+			pduReq.getRequest().getHeader().setAccept("application/sdp");
+			logger.log(Level.INFO, "Data Construct : \n" + pduReq.toString());
+			sendData(client, pduReq);
+		}
 	}
 
 }
