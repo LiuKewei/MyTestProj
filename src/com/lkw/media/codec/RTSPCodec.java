@@ -56,7 +56,11 @@ public class RTSPCodec {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		logger.log(Level.INFO, "Decode As : \n" + pdu.toString());
+		if (null != pdu) {
+			logger.log(Level.INFO, "Decode As : \n" + pdu.toString());
+		}else {
+			logger.log(Level.INFO, "Decode Failure\n");
+		}
 		return pdu;
 	}
 
