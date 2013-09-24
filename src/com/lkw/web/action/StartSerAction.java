@@ -3,7 +3,6 @@ package com.lkw.web.action;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.lkw.media.rtsp.RtspServer;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
@@ -19,9 +18,9 @@ public class StartSerAction extends ActionSupport {
 	}
 	@Override
 	public String execute() throws Exception {
-		RtspServer rtspSer = new RtspServer();
-		Thread thread = new Thread(rtspSer);
-		thread.start();
+//		RtspServer rtspSer = new RtspServer();
+//		Thread thread = new Thread(rtspSer);
+//		thread.start();
 		return super.execute();
 	}
 

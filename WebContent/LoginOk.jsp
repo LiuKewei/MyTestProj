@@ -28,7 +28,7 @@
 								+ '<INPUT type=submit value="Go" onClick="doGo(document.getElementById(\'targetTextField\').value);">'
 								+ '</TD></TR></TABLE>'
 								+ '<OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" width="640" height="480" id="vlc" events="True">'
-								+ '<param name="MRL" value="rtsp://192.168.229.1/01.ts" /><param name="ShowDisplay" value="True" />'
+								+ '<param name="MRL" value="rtsp://localhost/01.ts" /><param name="ShowDisplay" value="True" />'
 								+ '<param name="AutoLoop" value="False" /><param name="AutoPlay" value="False" />'
 								+ '<param name="Volume" value="50" /><param name="toolbar" value="true" />'
 								+ '<param name="StartTime" value="0" />'
