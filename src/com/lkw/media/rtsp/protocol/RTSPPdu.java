@@ -2,7 +2,6 @@ package com.lkw.media.rtsp.protocol;
 
 import java.io.Serializable;
 
-
 public class RTSPPdu implements Serializable {
 
 	/**
@@ -12,9 +11,9 @@ public class RTSPPdu implements Serializable {
 	private RTSPRequest request = null;
 	private RTSPResponse response = null;
 	private RTSPErronousMsg erronousMsg = null;
-	
+
 	public enum PduType {
-		REQ,RESP,ERR;
+		REQ, RESP, ERR;
 	}
 
 	public RTSPPdu(Object obj) {
@@ -63,17 +62,17 @@ public class RTSPPdu implements Serializable {
 		}
 		return "RTSP PDU {\n\t" + pduStr + "\n}";
 	}
-	
-public PduType getPduType() {
-	PduType type = null;
-	if (this.getRequest() != null) {
-		type = PduType.REQ;
-	} else if (this.getResponse() != null) {
-		type = PduType.RESP;
-	} else if (this.getErronous_msg() != null) {
-		type = PduType.ERR;
+
+	public PduType getPduType() {
+		PduType type = null;
+		if (this.getRequest() != null) {
+			type = PduType.REQ;
+		} else if (this.getResponse() != null) {
+			type = PduType.RESP;
+		} else if (this.getErronous_msg() != null) {
+			type = PduType.ERR;
+		}
+		return type;
 	}
-	return type;
-}
-	
+
 }

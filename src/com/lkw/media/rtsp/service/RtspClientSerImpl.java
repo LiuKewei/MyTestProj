@@ -31,5 +31,11 @@ public class RtspClientSerImpl implements RtspService {
 
 	}
 
+	@Override
+	public void handleMsg() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
