@@ -1,8 +1,5 @@
 package com.lkw.media.codec;
 
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -19,23 +16,18 @@ import com.lkw.media.rtsp.protocol.RTSPResponse;
 import com.lkw.media.rtsp.protocol.RTSPVersion;
 import com.lkw.media.rtsp.protocol.RequestLine;
 import com.lkw.media.rtsp.protocol.StatusLine;
+import com.lkw.utility.CodecCommon;
 
-public class RTSPCodec {
+public class RTSPCodec extends CodecCommon {
 
 	private final static Logger logger = Logger.getLogger(RTSPCodec.class
 			.getName());
-
-	private final static String CRLF = "\r\n";
-
-	protected static Charset charset = Charset.forName("UTF-8");
-	protected static CharsetDecoder charsetDecoder = charset.newDecoder();
 
 	public static RTSPPdu RTSPDecode(byte[] bytes) throws Exception {
 
 		RTSPPdu pdu = null;
 		byte[] body = null;
-		ByteBuffer buffer = ByteBuffer.wrap(bytes);
-		String tmpstr = charsetDecoder.decode(buffer).toString();
+		String tmpstr = utf8charsetDecode(bytes);
 		logger.log(Level.INFO, "Messages : \n" + tmpstr);
 		if (tmpstr.startsWith("RTSP/")) {// this is response message
 
@@ -70,7 +62,8 @@ public class RTSPCodec {
 						bodySb.append(CRLF);
 						break;
 					}
-					sdpContentLen += fields[idx].length() + CRLF.length();
+					sdpContentLen += fields[idx].length()
+							+ CRLF.length();
 					bodySb.append(fields[idx]);
 					bodySb.append(CRLF);
 				}
@@ -101,7 +94,8 @@ public class RTSPCodec {
 			RequestLine requestLine = pdu.getRequest().getRequestLine();
 			sb.append(requestLine.getMethod().toString() + " ")
 					.append(requestLine.getRequestURI() + " ")
-					.append(requestLine.getVersion().toEncodeString() + CRLF);
+					.append(requestLine.getVersion().toEncodeString()
+							+ CRLF);
 			HeaderStruct hs = pdu.getRequest().getHeader();
 			HashMap<String, String> hm = hs.getAllValidField();
 			Set<String> hmKeys = hm.keySet();
@@ -122,18 +116,10 @@ public class RTSPCodec {
 		sb.append(CRLF);
 		byte[] bytes = null;
 		bytes = sb.toString().getBytes("UTF-8");
-		logger.log(Level.INFO, "Messages : \n" + charsetDecoder.decode(ByteBuffer.wrap(bytes)).toString());
 		logger.log(Level.INFO,
-				"Encode As : \n\t" + RTSPCodec.getHexString(bytes));
+				"Messages : \n" + utf8charsetDecode(bytes));
+		logger.log(Level.INFO,
+				"Encode As : \n\t" + getHexString(bytes));
 		return bytes;
-	}
-
-	public static String getHexString(byte[] b) throws Exception {
-		String result = "";
-		for (int i = 0; i < b.length; i++) {
-			result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1)
-					+ " ";
-		}
-		return result;
 	}
 }

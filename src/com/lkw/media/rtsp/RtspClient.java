@@ -19,6 +19,7 @@ import com.lkw.media.rtsp.protocol.RTSPPdu.PduType;
 import com.lkw.media.rtsp.protocol.RTSPRequest;
 import com.lkw.media.rtsp.protocol.RTSPVersion;
 import com.lkw.media.rtsp.protocol.RequestLine;
+import com.lkw.utility.CodecCommon;
 
 public class RtspClient implements Runnable {
 
@@ -35,8 +36,6 @@ public class RtspClient implements Runnable {
 			+ "/01.ts";
 
 	private Selector selector = null;
-
-	private int returnflag = 1;
 
 	@Override
 	public void run() {
@@ -105,8 +104,7 @@ public class RtspClient implements Runnable {
 			pduResp = receiveData(client);
 			if (pduResp.getPduType().equals(PduType.RESP)) {
 				if (pduResp.getResponse().getHeader().getAllValidField()
-						.containsValue("application/sdp")
-						|| returnflag == 2) {
+						.containsValue("application/sdp")) {
 					client.close();
 					sk.cancel();
 					System.out.println("connect terminate");
@@ -115,7 +113,6 @@ public class RtspClient implements Runnable {
 			}
 
 			client.register(selector, SelectionKey.OP_WRITE);
-			returnflag++;
 		} else if (sk.isWritable()) {
 			SocketChannel client = (SocketChannel) sk.channel();
 			pduReq.getRequest().getRequestLine().setMethod(Method.DESCRIBE);
@@ -155,7 +152,7 @@ public class RtspClient implements Runnable {
 		}
 		bytes = baos.toByteArray();
 		logger.log(Level.INFO,
-				"Received Data : \n\t" + RTSPCodec.getHexString(bytes));
+				"Received Data : \n\t" + CodecCommon.getHexString(bytes));
 		return RTSPCodec.RTSPDecode(bytes);
 	}
 }
