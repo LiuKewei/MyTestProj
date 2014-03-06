@@ -2,8 +2,6 @@ package com.lkw.media.rtsp.protocol;
 
 import java.io.Serializable;
 
-import org.apache.catalina.tribes.util.Arrays;
-
 public class RTSPResponse implements Serializable {
 	/**
 	 * 
@@ -11,10 +9,9 @@ public class RTSPResponse implements Serializable {
 	private static final long serialVersionUID = 6778138656107882120L;
 	private StatusLine statusLine;
 	private HeaderStruct header;
-	private byte[] body;
+	private Object body;
 
-	public RTSPResponse(StatusLine statusLine, HeaderStruct header,
-			byte[] body) {
+	public RTSPResponse(StatusLine statusLine, HeaderStruct header, Object body) {
 		this.statusLine = statusLine;
 		this.header = header;
 		this.body = body;
@@ -36,11 +33,11 @@ public class RTSPResponse implements Serializable {
 		this.header = header;
 	}
 
-	public byte[] getBody() {
+	public Object getBody() {
 		return body;
 	}
 
-	public void setBody(byte[] body) {
+	public void setBody(Object body) {
 		this.body = body;
 	}
 
@@ -52,9 +49,11 @@ public class RTSPResponse implements Serializable {
 		sb.append("\n\t\t");
 		sb.append(this.header.toString());
 		sb.append("\n\t\t");
-		sb.append("Body : " + Arrays.toString(this.body));
+		// sb.append("Body : " + Arrays.toString(this.body));
+		sb.append("Body : "
+				+ (this.body == null ? "{}" : this.body.toString()));
 		sb.append("\n\t}");
 		return sb.toString();
 	}
-	
+
 }

@@ -15,7 +15,7 @@ public class SDPCodec extends CodecCommon {
 	private static SessionDescriptionTable SessionTableDec(String[] fields) {
 		SessionDescriptionTable sessionDesc = sdp.new SessionDescriptionTable();
 		for (; sdpDecodeIdx < sdpFieldsLen; sdpDecodeIdx++) {
-			String[] field = fields[sdpDecodeIdx].split("=");
+			String[] field = fields[sdpDecodeIdx].split("=", 2);
 			if ("v".equals(field[0])) {
 				sessionDesc.setProtocolVersion(field[1]);
 			} else if ("o".equals(field[0])) {
@@ -34,7 +34,19 @@ public class SDPCodec extends CodecCommon {
 	}
 
 	private static TimeDescriptionTable TimeTableDec(String[] fields) {
-		return null;
+		TimeDescriptionTable timeDesc = sdp.new TimeDescriptionTable();
+		for (; sdpDecodeIdx < sdpFieldsLen; sdpDecodeIdx++) {
+			if (fields[sdpDecodeIdx].equals("")) {
+				break;
+			}
+			String[] field = fields[sdpDecodeIdx].split("=", 2);
+			if ("t".equals(field[0])) {
+				timeDesc.setActiveTime(field[1]);
+			} else if ("r".equals(field[0])) {
+				timeDesc.setRepeatInterval(field[1]);
+			}
+		}
+		return timeDesc;
 	}
 
 	private static MediaDescriptionTable MediaTableDec(String[] fields) {
@@ -43,7 +55,7 @@ public class SDPCodec extends CodecCommon {
 			if (fields[sdpDecodeIdx].equals("")) {
 				break;
 			}
-			String[] field = fields[sdpDecodeIdx].split("=");
+			String[] field = fields[sdpDecodeIdx].split("=", 2);
 			if ("m".equals(field[0])) {
 				mediaDesc.setMediaDesc(field[1]);
 			} else if ("c".equals(field[0])) {
@@ -54,19 +66,23 @@ public class SDPCodec extends CodecCommon {
 				mediaDesc.setMediaAttr(field[1]);
 			}
 		}
-		return null;
+		return mediaDesc;
 	}
 
-	public static SessionDescriptionProtocol SDPDecode(byte[] bytes)
+	public static SessionDescriptionProtocol SDPDecode(String sdpMessage/*
+																		 * byte[]
+																		 * bytes
+																		 */)
 			throws Exception {
-		String sdpMessage = utf8charsetDecode(bytes);
+		// String sdpMessage = utf8charsetDecode(bytes);
 		if (sdpMessage.startsWith("v=")) {
 			String[] fields = sdpMessage.split(CRLF);
 			sdpFieldsLen = fields.length;
 			sdpDecodeIdx = 0;
-			SessionTableDec(fields);
-			TimeTableDec(fields);
-			MediaTableDec(fields);
+			sdp.setSessionDesc(SessionTableDec(fields));
+			sdp.setMediaDesc(MediaTableDec(fields));
+			sdpDecodeIdx = 0;
+			sdp.setTimeDesc(TimeTableDec(fields));
 		}
 
 		return sdp;

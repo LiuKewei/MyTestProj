@@ -15,6 +15,7 @@ import com.lkw.media.rtsp.protocol.RTSPPdu;
 import com.lkw.media.rtsp.protocol.RTSPResponse;
 import com.lkw.media.rtsp.protocol.RTSPVersion;
 import com.lkw.media.rtsp.protocol.RequestLine;
+import com.lkw.media.rtsp.protocol.SessionDescriptionProtocol;
 import com.lkw.media.rtsp.protocol.StatusLine;
 import com.lkw.utility.CodecCommon;
 
@@ -26,7 +27,7 @@ public class RTSPCodec extends CodecCommon {
 	public static RTSPPdu RTSPDecode(byte[] bytes) throws Exception {
 
 		RTSPPdu pdu = null;
-		byte[] body = null;
+		Object body = null;
 		String tmpstr = utf8charsetDecode(bytes);
 		logger.log(Level.INFO, "Messages : \n" + tmpstr);
 		if (tmpstr.startsWith("RTSP/")) {// this is response message
@@ -62,13 +63,15 @@ public class RTSPCodec extends CodecCommon {
 						bodySb.append(CRLF);
 						break;
 					}
-					sdpContentLen += fields[idx].length()
-							+ CRLF.length();
+					sdpContentLen += fields[idx].length() + CRLF.length();
 					bodySb.append(fields[idx]);
 					bodySb.append(CRLF);
 				}
+				SessionDescriptionProtocol sdp = SDPCodec.SDPDecode(bodySb.toString());
+				System.out.println(sdp.toString());
 				Assert.isTrue(Integer.parseInt(header.getContentLength()) == sdpContentLen);
-				body = bodySb.toString().getBytes("UTF-8");
+//				body = bodySb.toString().getBytes("UTF-8");
+				body = sdp;
 			}
 			RTSPResponse resp = new RTSPResponse(slobj, header, body);
 			pdu = new RTSPPdu((Object) resp);
@@ -94,8 +97,7 @@ public class RTSPCodec extends CodecCommon {
 			RequestLine requestLine = pdu.getRequest().getRequestLine();
 			sb.append(requestLine.getMethod().toString() + " ")
 					.append(requestLine.getRequestURI() + " ")
-					.append(requestLine.getVersion().toEncodeString()
-							+ CRLF);
+					.append(requestLine.getVersion().toEncodeString() + CRLF);
 			HeaderStruct hs = pdu.getRequest().getHeader();
 			HashMap<String, String> hm = hs.getAllValidField();
 			Set<String> hmKeys = hm.keySet();
@@ -116,10 +118,8 @@ public class RTSPCodec extends CodecCommon {
 		sb.append(CRLF);
 		byte[] bytes = null;
 		bytes = sb.toString().getBytes("UTF-8");
-		logger.log(Level.INFO,
-				"Messages : \n" + utf8charsetDecode(bytes));
-		logger.log(Level.INFO,
-				"Encode As : \n\t" + getHexString(bytes));
+		logger.log(Level.INFO, "Messages : \n" + utf8charsetDecode(bytes));
+		logger.log(Level.INFO, "Encode As : \n\t" + getHexString(bytes));
 		return bytes;
 	}
 }

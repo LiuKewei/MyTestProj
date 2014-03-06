@@ -155,27 +155,67 @@ public class SessionDescriptionProtocol {
 			this.phoneAddress = phoneAddress;
 		}
 
+		@Override
+		public String toString() {
+			return "SessionDescriptionTable [protocolVersion="
+					+ protocolVersion + ", sessionAttr=" + sessionAttr
+					+ ", origin=" + origin + ", connInfo=" + connInfo
+					+ ", bandwidthInfo=" + bandwidthInfo + ", sessionName="
+					+ sessionName + ", sessionInformation="
+					+ sessionInformation + ", uri=" + uri + ", emailAddress="
+					+ emailAddress + ", phoneAddress=" + phoneAddress + "]";
+		}
+
+		
+
 	}
 
 	public class TimeDescriptionTable {
-		private String startTime = null;
-		private String stopTime = null;
+		
+		/**
+		 * startTime stopTime
+		 */
+		private HashMap<String, String> activeTime = null;
+		
+		/**
+		 * <repeat interval> <active duration> <list of offsets from start-time>
+		 */
+		private HashMap<String, String> repeatInterval = null;
 
-		public String getStartTime() {
-			return startTime;
+		public HashMap<String, String> getRepeatInterval() {
+			return repeatInterval;
 		}
 
-		public void setStartTime(String startTime) {
-			this.startTime = startTime;
+		public void setRepeatInterval(String repeatIntervalValue) {
+			if (null == this.repeatInterval) {
+				this.repeatInterval = new HashMap<String, String>();
+			}
+			String[] values = repeatIntervalValue.split(" ");
+			this.repeatInterval.put("repeatInterval", values[0]);
+			this.repeatInterval.put("activeDuration", values[1]);
+			this.repeatInterval.put("listOfOffsets", values[1]);
 		}
 
-		public String getStopTime() {
-			return stopTime;
+		public HashMap<String, String> getActiveTime() {
+			return activeTime;
 		}
 
-		public void setStopTime(String stopTime) {
-			this.stopTime = stopTime;
+		public void setActiveTime(String activeTimeValue) {
+			if (null == this.activeTime) {
+				this.activeTime = new HashMap<String, String>();
+			}
+			String[] values = activeTimeValue.split(" ");
+			this.activeTime.put("startTime", values[0]);
+			this.activeTime.put("stopTime", values[1]);
 		}
+
+		@Override
+		public String toString() {
+			return "TimeDescriptionTable [activeTime=" + activeTime
+					+ ", repeatInterval=" + repeatInterval + "]";
+		}
+
+		
 
 	}
 
@@ -255,6 +295,19 @@ public class SessionDescriptionProtocol {
 			this.mediaAttr.put(singleAttr[0], singleAttr[1]);
 		}
 
+		@Override
+		public String toString() {
+			return "MediaDescriptionTable [mediaDesc=" + mediaDesc
+					+ ", connInfo=" + connInfo + ", bandwidthInfo="
+					+ bandwidthInfo + ", mediaAttr=" + mediaAttr + "]";
+		}
+
+	}
+
+	@Override
+	public String toString() {
+		return "SessionDescriptionProtocol [sessionDesc=" + sessionDesc.toString()
+				+ ", timeDesc=" + timeDesc.toString() + ", mediaDesc=" + mediaDesc.toString() + "]";
 	}
 
 }
