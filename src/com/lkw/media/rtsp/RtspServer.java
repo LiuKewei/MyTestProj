@@ -15,20 +15,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.lkw.media.rtsp.protocol.Method;
-import com.lkw.media.rtsp.protocol.RTSPResponse;
 import com.lkw.media.rtsp.protocol.RTSPPdu;
+import com.lkw.media.rtsp.protocol.RTSPResponse;
 import com.lkw.media.rtsp.protocol.RTSPVersion;
 import com.lkw.media.rtsp.protocol.StatusLine;
 import com.lkw.utility.SerializableUtil;
 
 public class RtspServer implements Runnable {
 
-	private final static Logger logger = Logger.getLogger(RtspServer.class.getName());
-	
-	private final static int serPort = Integer.parseInt(RtspProperties.getInstance().getPort());
-	
+	private final static Logger logger = Logger.getLogger(RtspServer.class
+			.getName());
+
+	private final static int serPort = Integer.parseInt(RtspProperties
+			.getInstance().getPort());
+
 	private static boolean terminal_flag = false;
-	
+
 	@Override
 	public void run() {
 		Selector selector = null;
@@ -43,7 +45,7 @@ public class RtspServer implements Runnable {
 			// Bind the server socket to the local host and port
 			serverSocketChannel.socket().setReuseAddress(true);
 			serverSocketChannel.socket().bind(new InetSocketAddress(serPort));
-			
+
 			// Register accepts on the server socket with the selector. This
 			// step tells the selector that the socket wants to be put on the
 			// ready list when accept operations occur, so allowing multiplexed
@@ -57,7 +59,8 @@ public class RtspServer implements Runnable {
 				// Someone is ready for I/O, get the ready keys
 				Iterator<SelectionKey> it = selector.selectedKeys().iterator();
 
-				// Walk through the ready keys collection and process date requests.
+				// Walk through the ready keys collection and process date
+				// requests.
 				while (it.hasNext()) {
 					SelectionKey readyKey = it.next();
 					it.remove();
@@ -80,60 +83,76 @@ public class RtspServer implements Runnable {
 			logger.log(Level.SEVERE, null, e);
 		} finally {
 			try {
-				selector.close();
-                System.out.println("server selector close");
+				if (selector != null) {
+					selector.close();
+					selector = null;
+				}
+				System.out.println("server selector close");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			try {
-				serverSocketChannel.close();
+				if (selector != null) {
+					serverSocketChannel.close();
+					serverSocketChannel = null;
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 
 	}
 
-	private static void execute(ServerSocketChannel serverSocketChannel) throws IOException {
+	private static void execute(ServerSocketChannel serverSocketChannel)
+			throws IOException {
 		SocketChannel socketChannel = null;
 		try {
 			socketChannel = serverSocketChannel.accept();
-			
+
 			RTSPPdu request = receiveData(socketChannel);
-			
-			logger.log(Level.INFO, request.getRequest().getRequestLine().getMethod().toString());
-			logger.log(Level.INFO, request.getRequest().getRequestLine().getRequestURI());
+
+			logger.log(Level.INFO, request.getRequest().getRequestLine()
+					.getMethod().toString());
+			logger.log(Level.INFO, request.getRequest().getRequestLine()
+					.getRequestURI());
 			RTSPResponse resp = null;
 			if (request.getRequest().getRequestLine().getMethod() == Method.TEARDOWN) {
 				terminal_flag = true;
-				resp = new RTSPResponse(new StatusLine(new RTSPVersion("1","0"), "400", "error"), request.getRequest().getHeader(), request.getRequest().getBody());
+				resp = new RTSPResponse(new StatusLine(
+						new RTSPVersion("1", "0"), "400", "error"), request
+						.getRequest().getHeader(), request.getRequest()
+						.getBody());
 			} else {
-				resp = new RTSPResponse(new StatusLine(new RTSPVersion("1","0"), "200", "ok"), request.getRequest().getHeader(), request.getRequest().getBody());
+				resp = new RTSPResponse(new StatusLine(
+						new RTSPVersion("1", "0"), "200", "ok"), request
+						.getRequest().getHeader(), request.getRequest()
+						.getBody());
 			}
-			
+
 			RTSPPdu response = new RTSPPdu(resp);
 			sendData(socketChannel, response);
 		} finally {
-			try {  
-                socketChannel.close();
-            } catch(Exception e) {
-            	e.printStackTrace();
-            }  
+			try {
+				socketChannel.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 	}
-	
-	private static RTSPPdu receiveData(SocketChannel socketChannel) throws IOException {
+
+	private static RTSPPdu receiveData(SocketChannel socketChannel)
+			throws IOException {
 		RTSPPdu request = null;
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-        ByteBuffer buffer = ByteBuffer.allocate(1024);
-        try {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ByteBuffer buffer = ByteBuffer.allocate(1024);
+		try {
 			byte[] bytes;
 			int size = 0;
-			while ( (size = socketChannel.read(buffer)) >= 0 ) {
+			while ((size = socketChannel.read(buffer)) >= 0) {
 				buffer.flip();
 				bytes = new byte[size];
 				buffer.get(bytes);
@@ -154,12 +173,12 @@ public class RtspServer implements Runnable {
 		}
 		return request;
 	}
-	
-	private static void sendData(SocketChannel socketChannel, RTSPPdu response) throws IOException {  
-		byte[] bytes = SerializableUtil.toBytes(response);  
-        ByteBuffer buffer = ByteBuffer.wrap(bytes);  
-        socketChannel.write(buffer); 
+
+	private static void sendData(SocketChannel socketChannel, RTSPPdu response)
+			throws IOException {
+		byte[] bytes = SerializableUtil.toBytes(response);
+		ByteBuffer buffer = ByteBuffer.wrap(bytes);
+		socketChannel.write(buffer);
 	}
 
-	
 }

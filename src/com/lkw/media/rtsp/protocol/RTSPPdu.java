@@ -1,9 +1,19 @@
 package com.lkw.media.rtsp.protocol;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.lkw.media.codec.RTSPCodec;
+import com.lkw.utility.CodecCommon;
 
 public class RTSPPdu implements Serializable {
 
+	private final static Logger logger = Logger.getLogger(RTSPPdu.class
+			.getName());
 	/**
 	 * 
 	 */
@@ -73,6 +83,33 @@ public class RTSPPdu implements Serializable {
 			type = PduType.ERR;
 		}
 		return type;
+	}
+	
+	public void sendData(SocketChannel socketChannel, RTSPPdu rtspPdu)
+			throws Exception {
+		logger.log(Level.INFO, "Data Construc : \n\t" + rtspPdu.toString());
+		byte[] bytes = RTSPCodec.RTSPEncode(rtspPdu);
+		ByteBuffer buffer = ByteBuffer.wrap(bytes);
+		socketChannel.write(buffer);
+	}
+
+	public RTSPPdu receiveData(SocketChannel socketChannel) throws Exception {
+		byte[] bytes = null;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		ByteBuffer buffer = ByteBuffer.allocate(1024);
+		int count = 0;
+		while ((count = socketChannel.read(buffer)) > 0) {
+			buffer.flip();
+			bytes = new byte[count];
+			buffer.get(bytes);
+			baos.write(bytes);
+			buffer.clear();
+		}
+		bytes = baos.toByteArray();
+		logger.log(Level.INFO,
+				"Received Data : \n\t" + CodecCommon.getHexString(bytes));
+		return RTSPCodec.RTSPDecode(bytes);
 	}
 
 }
