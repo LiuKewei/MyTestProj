@@ -1,20 +1,14 @@
 package com.lkw.media.rtsp.service;
 
 import java.nio.channels.SocketChannel;
-import java.util.HashMap;
-import java.util.Map;
 
-public class SessionManager {
+import com.lkw.media.base.service.SessionManager;
 
-	private Map<Integer, RTSPState> States = new HashMap<Integer, RTSPState>();
-
-	public Map<Integer, RTSPState> getStates() {
-		return States;
-	}
+public class RtspSessionManager extends SessionManager {
 
 	public void handleSessionReq(SocketChannel client, int cSeq)
 			throws Exception {
-		RTSPState state = States.get(cSeq);
+		RtspState state = (RtspState) states.get(cSeq);
 		if (state == null) {
 			System.out.println("handleSessionReq state == null");
 			state = new OptionsState();
@@ -25,7 +19,7 @@ public class SessionManager {
 
 	public boolean handleSessionResp(SocketChannel client, int cSeq)
 			throws Exception {
-		RTSPState state = States.get(cSeq);
+		RtspState state = (RtspState) states.get(cSeq);
 		if (state == null) {
 			System.out.println("handleSessionResp state == null");
 			return false;

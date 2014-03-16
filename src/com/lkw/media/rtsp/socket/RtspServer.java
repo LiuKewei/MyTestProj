@@ -1,4 +1,4 @@
-package com.lkw.media.rtsp;
+package com.lkw.media.rtsp.socket;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,11 +14,12 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.lkw.media.rtsp.protocol.Method;
-import com.lkw.media.rtsp.protocol.RTSPPdu;
-import com.lkw.media.rtsp.protocol.RTSPResponse;
-import com.lkw.media.rtsp.protocol.RTSPVersion;
-import com.lkw.media.rtsp.protocol.StatusLine;
+import com.lkw.media.base.MediaProperties;
+import com.lkw.media.rtsp.pdu.Method;
+import com.lkw.media.rtsp.pdu.RTSPPdu;
+import com.lkw.media.rtsp.pdu.RTSPResponse;
+import com.lkw.media.rtsp.pdu.RTSPVersion;
+import com.lkw.media.rtsp.pdu.StatusLine;
 import com.lkw.utility.SerializableUtil;
 
 public class RtspServer implements Runnable {
@@ -26,8 +27,8 @@ public class RtspServer implements Runnable {
 	private final static Logger logger = Logger.getLogger(RtspServer.class
 			.getName());
 
-	private final static int serPort = Integer.parseInt(RtspProperties
-			.getInstance().getPort());
+	private final static int serPort = Integer.parseInt(MediaProperties
+			.getInstance().getRtspPort());
 
 	private static boolean terminal_flag = false;
 

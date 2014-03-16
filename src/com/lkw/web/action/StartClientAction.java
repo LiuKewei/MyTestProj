@@ -3,7 +3,7 @@ package com.lkw.web.action;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.lkw.media.rtsp.RtspClient;
+import com.lkw.media.rtsp.socket.RtspClient;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")

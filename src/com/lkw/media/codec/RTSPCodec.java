@@ -8,16 +8,15 @@ import java.util.logging.Logger;
 
 import org.springframework.util.Assert;
 
-import com.lkw.media.rtsp.protocol.HeaderStruct;
-import com.lkw.media.rtsp.protocol.Method;
-import com.lkw.media.rtsp.protocol.RTSPErronousMsg;
-import com.lkw.media.rtsp.protocol.RTSPPdu;
-import com.lkw.media.rtsp.protocol.RTSPResponse;
-import com.lkw.media.rtsp.protocol.RTSPVersion;
-import com.lkw.media.rtsp.protocol.RequestLine;
-import com.lkw.media.rtsp.protocol.SessionDescriptionProtocol;
-import com.lkw.media.rtsp.protocol.StatusLine;
-import com.lkw.utility.CodecCommon;
+import com.lkw.media.rtsp.pdu.HeaderStruct;
+import com.lkw.media.rtsp.pdu.Method;
+import com.lkw.media.rtsp.pdu.RTSPErronousMsg;
+import com.lkw.media.rtsp.pdu.RTSPPdu;
+import com.lkw.media.rtsp.pdu.RTSPResponse;
+import com.lkw.media.rtsp.pdu.RTSPVersion;
+import com.lkw.media.rtsp.pdu.RequestLine;
+import com.lkw.media.rtsp.pdu.SessionDescriptionProtocol;
+import com.lkw.media.rtsp.pdu.StatusLine;
 
 public class RTSPCodec extends CodecCommon {
 

@@ -1,4 +1,4 @@
-package com.lkw.media.rtsp;
+package com.lkw.media.rtsp.socket;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.lkw.media.rtsp.service.SessionManager;
+import com.lkw.media.base.MediaProperties;
+import com.lkw.media.rtsp.service.RtspSessionManager;
 
 public class RtspClient implements Runnable {
 
@@ -20,15 +21,15 @@ public class RtspClient implements Runnable {
 
 	private int cSeq = 1;
 
-	private SessionManager sm = new SessionManager();
+	private RtspSessionManager sm = new RtspSessionManager();
 
 	@Override
 	public void run() {
 		SocketChannel socketChannel = null;
 		try {
-			SocketAddress socketAddress = new InetSocketAddress(RtspProperties
-					.getInstance().getHost(), Integer.parseInt(RtspProperties
-					.getInstance().getPort()));
+			SocketAddress socketAddress = new InetSocketAddress(MediaProperties
+					.getInstance().getRtspHost(), Integer.parseInt(MediaProperties
+					.getInstance().getRtspPort()));
 			socketChannel = SocketChannel.open();
 			socketChannel.configureBlocking(false);
 			selector = Selector.open();

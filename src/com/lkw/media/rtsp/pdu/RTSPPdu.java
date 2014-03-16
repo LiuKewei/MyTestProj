@@ -1,4 +1,4 @@
-package com.lkw.media.rtsp.protocol;
+package com.lkw.media.rtsp.pdu;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
@@ -7,8 +7,8 @@ import java.nio.channels.SocketChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.lkw.media.codec.CodecCommon;
 import com.lkw.media.codec.RTSPCodec;
-import com.lkw.utility.CodecCommon;
 
 public class RTSPPdu implements Serializable {
 

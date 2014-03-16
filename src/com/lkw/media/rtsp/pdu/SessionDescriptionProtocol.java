@@ -1,4 +1,4 @@
-package com.lkw.media.rtsp.protocol;
+package com.lkw.media.rtsp.pdu;
 
 import java.util.HashMap;
 
@@ -7,7 +7,7 @@ public class SessionDescriptionProtocol {
 	private SessionDescriptionTable sessionDesc = null;
 	private TimeDescriptionTable timeDesc = null;
 	private MediaDescriptionTable mediaDesc = null;
-	
+
 	public SessionDescriptionTable getSessionDesc() {
 		return sessionDesc;
 	}

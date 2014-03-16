@@ -1,10 +1,9 @@
 package com.lkw.media.codec;
 
-import com.lkw.media.rtsp.protocol.SessionDescriptionProtocol;
-import com.lkw.media.rtsp.protocol.SessionDescriptionProtocol.MediaDescriptionTable;
-import com.lkw.media.rtsp.protocol.SessionDescriptionProtocol.SessionDescriptionTable;
-import com.lkw.media.rtsp.protocol.SessionDescriptionProtocol.TimeDescriptionTable;
-import com.lkw.utility.CodecCommon;
+import com.lkw.media.rtsp.pdu.SessionDescriptionProtocol;
+import com.lkw.media.rtsp.pdu.SessionDescriptionProtocol.MediaDescriptionTable;
+import com.lkw.media.rtsp.pdu.SessionDescriptionProtocol.SessionDescriptionTable;
+import com.lkw.media.rtsp.pdu.SessionDescriptionProtocol.TimeDescriptionTable;
 
 public class SDPCodec extends CodecCommon {
 

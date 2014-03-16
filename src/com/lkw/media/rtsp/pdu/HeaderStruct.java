@@ -1,4 +1,4 @@
-package com.lkw.media.rtsp.protocol;
+package com.lkw.media.rtsp.pdu;
 
 import java.io.Serializable;
 import java.util.ArrayList;
